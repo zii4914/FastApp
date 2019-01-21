@@ -1,0 +1,116 @@
+ext.versions = [
+    //build
+    "compileSdk": 28,
+    "minSdk": 19,
+    "targetSdk": 28,
+
+    //test
+    "junit":'4.12',
+    "testRunner":'1.0.2',
+    "espressoCore":'3.0.2',
+
+    //app
+    "versionCode": 1,
+    "versionName": '1.0.0',
+
+    //support lib
+    "supportLib": '27.1.1',
+    "supportX": '1.0.0',
+
+    //google
+    "constrainLayout": '1.1.1',
+
+    //project
+    "dagger2": '2.12',
+    "rxjava2": '2.1.8',
+    "rxAndroid": '2.0.1',
+    "rxLifecycle": '2.2.1',
+    "autoDispose": '1.0.0',
+    "butterknife": '10.0.0',
+    "eventbus": '3.1.1',
+    "logger": '2.2.0',
+
+    //net
+    "okhttp": '3.9.1',
+    "retrofit": '2.3.0',
+
+    //picture
+    "glide": '4.5.0',
+
+    //database
+    "greendao": '3.2.2',
+
+    //recyclerview
+    "BRVAH": '2.9.34',
+
+    //animation
+    "Lottie": '2.5.0-beta3',
+
+    //util
+    "AndroidUtilCode": '1.12.3',
+
+    "bottombar": '2.3.1',
+]
+
+ext.libs = [
+    //test
+    "junit": "junit:junit:$versions.junit",
+    "testRunner": "com.android.support.test:runner:$versions.testRunner",
+    "espressoCore": "com.android.support.test.espresso:espresso-core:$versions.espressoCore",
+
+    //support libs
+    "Support_appcompat_v7": "com.android.support:appcompat-v7:$versions.supportLib",
+    "Support_appcompat_x": "androidx.appcompat:appcompat:$versions.supportX",
+    "Support_animated_vector_drawable": "com.android.support:animated-vector-drawable:$versions.supportLib",
+    "Support_preference_v7": "com.android.support:preference-v7:$versions.supportLib",
+    "Support_recyclerview_v7": "com.android.support:recyclerview-v7:$versions.supportLib",
+    "Support_support_annotations": "com.android.support:support-annotations:$versions.supportLib",
+    "Support_support_compat": "com.android.support:support-compat:$versions.supportLib",
+    "Support_support_core_ui": "com.android.support:support-core-ui:$versions.supportLib",
+    "Support_support_core_utils": "com.android.support:support-core-utils:$versions.supportLib",
+    "Support_support_fragment": "com.android.support:support-fragment:$versions.supportLib",
+    "Support_support_media_compat": "com.android.support:support-media-compat:$versions.supportLib",
+    "Support_support_vector_drawable": "com.android.support:support-vector-drawable:$versions.supportLib",
+    "Support_design": "com.android.support:design:$versions.supportLib",
+
+    //google
+    "ConstrainLayout": "com.android.support.constraint:constraint-layout:$versions.constrainLayout",
+
+    //project
+    "Dagger2": "com.google.dagger:dagger:$versions.dagger2",
+    "Dagger2Compiler": "com.google.dagger:dagger-compiler:$versions.dagger2",
+    "Rxjava2": "io.reactivex.rxjava2:rxjava:$versions.rxjava2",
+    "Rxjava2Android": "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+    "AutoDispose": "com.uber.autodispose:autodispose-android-archcomponents:$versions.autoDispose",
+    "RxLifecycle": "com.trello.rxlifecycle2:rxlifecycle:$versions.rxLifecycle",
+    "RxLifecycleComponent": "com.trello.rxlifecycle2:rxlifecycle-components-preference:$versions.rxLifecycle",
+    "Butterknife": "com.jakewharton:butterknife:$versions.butterknife",
+    "ButterknifeCompiler": "com.jakewharton:butterknife-compiler:$versions.butterknife",
+    "Eventbus": "org.greenrobot:eventbus:$versions.eventbus",
+    "Logger": "com.orhanobut:logger:$versions.logger",
+
+    //net
+    "Okhttp": "com.squareup.okhttp3:okhttp:$versions.okhttp",
+    "Retrofit": "com.squareup.retrofit2:retrofit:$versions.retrofit",
+    "RetrofitGsonConvert": "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+    "RetrofitRxJavaAdapter": "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+
+    //picture
+    "Glide": "com.github.bumptech.glide:glide:$versions.glide",
+    "GlideCompiler": "com.github.bumptech.glide:compiler:$versions.glide",
+
+    //database
+    "Greendao": "org.greenrobot:greendao:$versions.greendao",
+
+    //recyclerview
+    "BRVAH": "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.BRVAH",
+
+    //animation
+    "Lottie": "com.airbnb.android:lottie:$versions.Lottie",
+
+    //util -- 直接把文件copy进来，方便添加修改，不依赖
+    "AndroidUtilCode": "com.blankj:utilcode:$versions.AndroidUtilCode",
+
+    //widget
+    "Bottombar": "com.roughike:bottom-bar:$versions.bottombar",
+]
