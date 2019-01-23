@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import com.zii.base.util.SysActionUtils;
 import com.zii.base.util.ToastUtils;
 import com.zii.base.widget.dialog.PopupDialog;
@@ -28,6 +29,12 @@ public class TestCollection {
 
   public TestCollection(Activity activity) {
     mActivity = activity;
+  }
+
+  public void testQuick(View view) {
+    new AlertDialog.Builder(mActivity)
+        .setMessage("测试内容拉")
+        .show();
   }
 
   public void testTakePicture(View view) {

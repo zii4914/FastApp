@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
   public void onTestSome(View view) {
     //mTestCollection.testPopupDialog(view);
-    mTestCollection.testTakePicture(view);
+    //mTestCollection.testTakePicture(view);
+    mTestCollection.testQuick(view);
   }
 
   @Override
