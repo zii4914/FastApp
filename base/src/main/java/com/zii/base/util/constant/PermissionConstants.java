@@ -1,4 +1,4 @@
-package com.zii.base.util;
+package com.zii.base.util.constant;
 
 import android.Manifest;
 import android.Manifest.permission;

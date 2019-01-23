@@ -7,14 +7,16 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import androidx.core.content.FileProvider;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * AppUtils
@@ -22,14 +24,14 @@ import java.util.Map;
  */
 public class Utils {
 
-  static final AdaptScreenArgs ADAPT_SCREEN_ARGS = new AdaptScreenArgs();
-  private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
-
-  private final static String PERMISSION_ACTIVITY_CLASS_NAME =
-      "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
-  // TODO td-zii : 2018/11/11  修改为当前的PermissionActivity位置
   @SuppressLint("StaticFieldLeak")
   private static Application sApplication;
+
+  private static final ActivityLifecycleImpl ACTIVITY_LIFECYCLE = new ActivityLifecycleImpl();
+
+  private static final String PERMISSION_ACTIVITY_CLASS_NAME =
+      "com.zii.base.util.PermissionUtils$PermissionActivity";
+
 
   private Utils() {
     throw new UnsupportedOperationException("u can't instantiate me...");
@@ -63,6 +65,13 @@ public class Utils {
         sApplication = app;
       }
       sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+    } else {
+      if (app != null && app.getClass() != sApplication.getClass()) {
+        sApplication.unregisterActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+        ACTIVITY_LIFECYCLE.mActivityList.clear();
+        sApplication = app;
+        sApplication.registerActivityLifecycleCallbacks(ACTIVITY_LIFECYCLE);
+      }
     }
   }
 
@@ -96,7 +105,13 @@ public class Utils {
         throw new NullPointerException("u should init first");
       }
       return (Application) app;
-    } catch (NoSuchMethodException | IllegalAccessException | ClassNotFoundException | InvocationTargetException e) {
+    } catch (NoSuchMethodException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
     throw new NullPointerException("u should init first");
@@ -133,83 +148,39 @@ public class Utils {
     return false;
   }
 
-  static void restoreAdaptScreen() {
-    final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-    final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-    final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
-    if (activity != null) {
-      final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-      if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
-        activityDm.density = activityDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-      } else {
-        activityDm.density = activityDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-      }
-      activityDm.scaledDensity = activityDm.density * (systemDm.scaledDensity / systemDm.density);
-      activityDm.densityDpi = (int) (160 * activityDm.density);
-
-      appDm.density = activityDm.density;
-      appDm.scaledDensity = activityDm.scaledDensity;
-      appDm.densityDpi = activityDm.densityDpi;
-    } else {
-      if (ADAPT_SCREEN_ARGS.isVerticalSlide) {
-        appDm.density = appDm.widthPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-      } else {
-        appDm.density = appDm.heightPixels / (float) ADAPT_SCREEN_ARGS.sizeInPx;
-      }
-      appDm.scaledDensity = appDm.density * (systemDm.scaledDensity / systemDm.density);
-      appDm.densityDpi = (int) (160 * appDm.density);
-    }
-  }
-
-  static void cancelAdaptScreen() {
-    final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-    final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-    final Activity activity = ACTIVITY_LIFECYCLE.getTopActivity();
-    if (activity != null) {
-      final DisplayMetrics activityDm = activity.getResources().getDisplayMetrics();
-      activityDm.density = systemDm.density;
-      activityDm.scaledDensity = systemDm.scaledDensity;
-      activityDm.densityDpi = systemDm.densityDpi;
-    }
-    appDm.density = systemDm.density;
-    appDm.scaledDensity = systemDm.scaledDensity;
-    appDm.densityDpi = systemDm.densityDpi;
-  }
-
-  static boolean isAdaptScreen() {
-    final DisplayMetrics systemDm = Resources.getSystem().getDisplayMetrics();
-    final DisplayMetrics appDm = Utils.getApp().getResources().getDisplayMetrics();
-    return systemDm.density != appDm.density;
-  }
-
   public interface OnAppStatusChangedListener {
-
     void onForeground();
 
     void onBackground();
   }
 
-  static class AdaptScreenArgs {
+  public static final class FileProvider4UtilCode extends FileProvider {
 
-    int sizeInPx;
-    boolean isVerticalSlide;
+    @Override
+    public boolean onCreate() {
+      Utils.init(getContext());
+      return true;
+    }
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  // interface
+  ///////////////////////////////////////////////////////////////////////////
+
+  public interface OnActivityDestroyedListener {
+
+    void onActivityDestroyed(Activity activity);
   }
 
   static class ActivityLifecycleImpl implements Application.ActivityLifecycleCallbacks {
 
     final LinkedList<Activity> mActivityList = new LinkedList<>();
-    final HashMap<Object, OnAppStatusChangedListener> mStatusListenerMap = new HashMap<>();
+    final Map<Object, OnAppStatusChangedListener> mStatusListenerMap = new HashMap<>();
+    final Map<Activity, Set<OnActivityDestroyedListener>> mDestroyedListenerMap = new HashMap<>();
 
     private int mForegroundCount = 0;
     private int mConfigCount = 0;
-
-    void addListener(final Object object, final OnAppStatusChangedListener listener) {
-      mStatusListenerMap.put(object, listener);
-    }
-
-    void removeListener(final Object object) {
-      mStatusListenerMap.remove(object);
-    }
+    private boolean mIsBackground = false;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -218,9 +189,8 @@ public class Utils {
 
     @Override
     public void onActivityStarted(Activity activity) {
-      setTopActivity(activity);
-      if (mForegroundCount <= 0) {
-        postStatus(true);
+      if (!mIsBackground) {
+        setTopActivity(activity);
       }
       if (mConfigCount < 0) {
         ++mConfigCount;
@@ -232,10 +202,16 @@ public class Utils {
     @Override
     public void onActivityResumed(Activity activity) {
       setTopActivity(activity);
+      if (mIsBackground) {
+        mIsBackground = false;
+        postStatus(true);
+      }
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {/**/}
+    public void onActivityPaused(Activity activity) {/**/
+
+    }
 
     @Override
     public void onActivityStopped(Activity activity) {
@@ -244,6 +220,7 @@ public class Utils {
       } else {
         --mForegroundCount;
         if (mForegroundCount <= 0) {
+          mIsBackground = true;
           postStatus(false);
         }
       }
@@ -255,18 +232,7 @@ public class Utils {
     @Override
     public void onActivityDestroyed(Activity activity) {
       mActivityList.remove(activity);
-    }
-
-    private void postStatus(final boolean isForeground) {
-      if (mStatusListenerMap.isEmpty()) return;
-      for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
-        if (onAppStatusChangedListener == null) return;
-        if (isForeground) {
-          onAppStatusChangedListener.onForeground();
-        } else {
-          onAppStatusChangedListener.onBackground();
-        }
-      }
+      consumeOnActivityDestroyedListener(activity);
     }
 
     Activity getTopActivity() {
@@ -283,6 +249,46 @@ public class Utils {
       return topActivityByReflect;
     }
 
+    void addOnAppStatusChangedListener(final Object object,
+        final OnAppStatusChangedListener listener) {
+      mStatusListenerMap.put(object, listener);
+    }
+
+    void removeOnAppStatusChangedListener(final Object object) {
+      mStatusListenerMap.remove(object);
+    }
+
+    void removeOnActivityDestroyedListener(final Activity activity) {
+      if (activity == null) return;
+      mDestroyedListenerMap.remove(activity);
+    }
+
+    void addOnActivityDestroyedListener(final Activity activity,
+        final OnActivityDestroyedListener listener) {
+      if (activity == null || listener == null) return;
+      Set<OnActivityDestroyedListener> listeners;
+      if (!mDestroyedListenerMap.containsKey(activity)) {
+        listeners = new HashSet<>();
+        mDestroyedListenerMap.put(activity, listeners);
+      } else {
+        listeners = mDestroyedListenerMap.get(activity);
+        if (listeners.contains(listener)) return;
+      }
+      listeners.add(listener);
+    }
+
+    private void postStatus(final boolean isForeground) {
+      if (mStatusListenerMap.isEmpty()) return;
+      for (OnAppStatusChangedListener onAppStatusChangedListener : mStatusListenerMap.values()) {
+        if (onAppStatusChangedListener == null) return;
+        if (isForeground) {
+          onAppStatusChangedListener.onForeground();
+        } else {
+          onAppStatusChangedListener.onBackground();
+        }
+      }
+    }
+
     private void setTopActivity(final Activity activity) {
       if (PERMISSION_ACTIVITY_CLASS_NAME.equals(activity.getClass().getName())) return;
       if (mActivityList.contains(activity)) {
@@ -292,6 +298,21 @@ public class Utils {
         }
       } else {
         mActivityList.addLast(activity);
+      }
+    }
+
+    private void consumeOnActivityDestroyedListener(Activity activity) {
+      Iterator<Map.Entry<Activity, Set<OnActivityDestroyedListener>>> iterator
+          = mDestroyedListenerMap.entrySet().iterator();
+      while (iterator.hasNext()) {
+        Map.Entry<Activity, Set<OnActivityDestroyedListener>> entry = iterator.next();
+        if (entry.getKey() == activity) {
+          Set<OnActivityDestroyedListener> value = entry.getValue();
+          for (OnActivityDestroyedListener listener : value) {
+            listener.onActivityDestroyed(activity);
+          }
+          iterator.remove();
+        }
       }
     }
 
@@ -314,23 +335,18 @@ public class Utils {
             return (Activity) activityField.get(activityRecord);
           }
         }
-      } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | NoSuchFieldException e) {
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      } catch (NoSuchFieldException e) {
         e.printStackTrace();
       }
       return null;
-    }
-  }
-
-  ///////////////////////////////////////////////////////////////////////////
-  // interface
-  ///////////////////////////////////////////////////////////////////////////
-
-  public static final class FileProvider4UtilCode extends FileProvider {
-
-    @Override
-    public boolean onCreate() {
-      Utils.init(getContext());
-      return true;
     }
   }
 }

@@ -82,6 +82,7 @@ public class BaseApplication extends Application {
   public void onCreate() {
     super.onCreate();
     sApplication = this;
+    Log.d("zii-app", "BaseApplication onCreate");
 
     registerActivityLifecycleCallbacks(mCallbacks);
     Utils.init(this);
