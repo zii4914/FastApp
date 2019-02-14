@@ -5,11 +5,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+  TextView mTv;
   private TestCollection mTestCollection;
   private ImageView mIv;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    mTv = findViewById(R.id.tv);
     mIv = findViewById(R.id.iv);
 
     mTestCollection = new TestCollection(this);
@@ -27,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
     //mTestCollection.testPopupDialog(view);
     //mTestCollection.testTakePicture(view);
     mTestCollection.testQuick(view);
+    mTv.setText(getDisplayText());
+  }
+
+  private String getDisplayText() {
+    String text = "";
+
+    text = mTestCollection.getVersions();
+
+    return text;
   }
 
   @Override

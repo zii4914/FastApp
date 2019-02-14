@@ -123,7 +123,7 @@ public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseF
   public void onDestroy() {
     Log.d(TAG, "onDestroy: ");
     super.onDestroy();
-    mPresenter.releaseView();
+    mPresenter.detachView();
   }
 
   @Override

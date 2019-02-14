@@ -1,17 +1,22 @@
-ext.versions = [
-    //build
+ext.app = [
+    "appId": 'com.zii.fastapp',
+
+    //sdk
     "compileSdk": 28,
     "minSdk": 19,
     "targetSdk": 28,
 
-    //test
-    "junit":'4.12',
-    "testRunner":'1.0.2',
-    "espressoCore":'3.0.2',
-
-    //app
+    //version
     "versionCode": 1,
-    "versionName": '1.0.0',
+    "versionName": '1.5.0',
+]
+
+ext.versions = [
+
+    //test
+    "junit": '4.12',
+    "testRunner": '1.0.2',
+    "espressoCore": '3.0.2',
 
     //support lib
     "supportLib": '27.1.1',

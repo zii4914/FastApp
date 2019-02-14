@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import com.zii.base.util.AppUtils;
 import com.zii.base.util.SysActionUtils;
 import com.zii.base.util.ToastUtils;
 import com.zii.base.widget.dialog.PopupDialog;
@@ -33,8 +34,9 @@ public class TestCollection {
 
   public void testQuick(View view) {
     new AlertDialog.Builder(mActivity)
-        .setMessage("测试内容拉")
-        .show();
+      .setMessage("测试内容拉")
+      .setTitle("标题")
+      .show();
   }
 
   public void testTakePicture(View view) {
@@ -50,20 +52,20 @@ public class TestCollection {
 
   public void testPopupDialog(View view) {
     PopupItemsDialog dialog = new PopupItemsDialog(mActivity, 180, 0)
-        .addItem("哈哈", new TranslucenceDialog.OnClickChild() {
-          @Override
-          public void onClick(TranslucenceDialog dialog, View view) {
-            dialog.dismiss();
-            ToastUtils.showShort(((TextView) view).getText());
-          }
-        })
-        .addItem("Gou", new TranslucenceDialog.OnClickChild() {
-          @Override
-          public void onClick(TranslucenceDialog dialog, View view) {
-            dialog.dismiss();
-            ToastUtils.showShort(((TextView) view).getText());
-          }
-        });
+      .addItem("哈哈", new TranslucenceDialog.OnClickChild() {
+        @Override
+        public void onClick(TranslucenceDialog dialog, View view) {
+          dialog.dismiss();
+          ToastUtils.showShort(((TextView) view).getText());
+        }
+      })
+      .addItem("Gou", new TranslucenceDialog.OnClickChild() {
+        @Override
+        public void onClick(TranslucenceDialog dialog, View view) {
+          dialog.dismiss();
+          ToastUtils.showShort(((TextView) view).getText());
+        }
+      });
     dialog.setLocation(view, "bottom", PopupDialog.ALIGN_LEFT, 0, 0);
     dialog.show();
   }
@@ -74,12 +76,18 @@ public class TestCollection {
         if (resultCode == RESULT_OK) {
 
           Log.d("zii-",
-              "uri:" + mPictureUri + "       " + mPicturePath);
+            "uri:" + mPictureUri + "       " + mPicturePath);
           SysActionUtils.galleryAddPicture(mPicturePath);
           return mPictureUri;
         }
         break;
+      default:
+        break;
     }
     return null;
+  }
+
+  public String getVersions() {
+    return AppUtils.getAppVersionCode() + "   " + AppUtils.getAppVersionName();
   }
 }

@@ -15,7 +15,7 @@ public abstract class IBaseMvpPresenter<V extends IBaseMvpView> implements Lifec
     mView = v;
   }
 
-  protected void releaseView() {
+  protected void detachView() {
     mView = null;
   }
 }
