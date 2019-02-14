@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * AppUtils
+ * Utils
  * Create by zii at 2018/11/11.
  */
 public class Utils {

@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
   public void onTestSome(View view) {
     //mTestCollection.testPopupDialog(view);
     //mTestCollection.testTakePicture(view);
-    mTestCollection.testQuick(view);
-    mTv.setText(getDisplayText());
+    //mTestCollection.testQuick(view);
+    mTestCollection.testShowDatePicker(view);
+    //mTv.setText(getDisplayText());
   }
 
   private String getDisplayText() {

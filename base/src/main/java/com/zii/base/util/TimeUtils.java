@@ -20,11 +20,11 @@ public class TimeUtils {
   public static final String PATTERN_yyyy_MM_dd = "yyyy-MM-dd";
   private static final ThreadLocal<SimpleDateFormat> SDF_THREAD_LOCAL = new ThreadLocal<>();
   private static final String[] CHINESE_ZODIAC =
-      { "猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊" };
+    { "猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊" };
   private static final int[] ZODIAC_FLAGS = { 20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22 };
   private static final String[] ZODIAC = {
-      "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
-      "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"
+    "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
+    "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"
   };
 
   private TimeUtils() {
@@ -175,8 +175,8 @@ public class TimeUtils {
    * @return the time span, in unit
    */
   public static long getTimeSpan(final String time1,
-      final String time2,
-      @TimeConstants.Unit final int unit) {
+    final String time2,
+    @TimeConstants.Unit final int unit) {
     return getTimeSpan(time1, time2, getDefaultFormat(), unit);
   }
 
@@ -197,9 +197,9 @@ public class TimeUtils {
    * @return the time span, in unit
    */
   public static long getTimeSpan(final String time1,
-      final String time2,
-      @NonNull final DateFormat format,
-      @TimeConstants.Unit final int unit) {
+    final String time2,
+    @NonNull final DateFormat format,
+    @TimeConstants.Unit final int unit) {
     return millis2TimeSpan(string2Millis(time1, format) - string2Millis(time2, format), unit);
   }
 
@@ -219,8 +219,8 @@ public class TimeUtils {
    * @return the time span, in unit
    */
   public static long getTimeSpan(final Date date1,
-      final Date date2,
-      @TimeConstants.Unit final int unit) {
+    final Date date2,
+    @TimeConstants.Unit final int unit) {
     return millis2TimeSpan(date2Millis(date1) - date2Millis(date2), unit);
   }
 
@@ -240,8 +240,8 @@ public class TimeUtils {
    * @return the time span, in unit
    */
   public static long getTimeSpan(final long millis1,
-      final long millis2,
-      @TimeConstants.Unit final int unit) {
+    final long millis2,
+    @TimeConstants.Unit final int unit) {
     return millis2TimeSpan(millis1 - millis2, unit);
   }
 
@@ -263,8 +263,8 @@ public class TimeUtils {
    * @return the fit time span
    */
   public static String getFitTimeSpan(final String time1,
-      final String time2,
-      final int precision) {
+    final String time2,
+    final int precision) {
     long delta = string2Millis(time1, getDefaultFormat()) - string2Millis(time2, getDefaultFormat());
     return millis2FitTimeSpan(delta, precision);
   }
@@ -287,9 +287,9 @@ public class TimeUtils {
    * @return the fit time span
    */
   public static String getFitTimeSpan(final String time1,
-      final String time2,
-      @NonNull final DateFormat format,
-      final int precision) {
+    final String time2,
+    @NonNull final DateFormat format,
+    final int precision) {
     long delta = string2Millis(time1, format) - string2Millis(time2, format);
     return millis2FitTimeSpan(delta, precision);
   }
@@ -331,8 +331,8 @@ public class TimeUtils {
    * @return the fit time span
    */
   public static String getFitTimeSpan(final long millis1,
-      final long millis2,
-      final int precision) {
+    final long millis2,
+    final int precision) {
     return millis2FitTimeSpan(millis1 - millis2, precision);
   }
 
@@ -413,8 +413,8 @@ public class TimeUtils {
    * @return the time span by now, in unit
    */
   public static long getTimeSpanByNow(final String time,
-      @NonNull final DateFormat format,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    @TimeConstants.Unit final int unit) {
     return getTimeSpan(time, getNowString(format), format, unit);
   }
 
@@ -491,8 +491,8 @@ public class TimeUtils {
    * @return the fit time span by now
    */
   public static String getFitTimeSpanByNow(final String time,
-      @NonNull final DateFormat format,
-      final int precision) {
+    @NonNull final DateFormat format,
+    final int precision) {
     return getFitTimeSpan(time, getNowString(format), format, precision);
   }
 
@@ -571,7 +571,7 @@ public class TimeUtils {
    * </ul>
    */
   public static String getFriendlyTimeSpanByNow(final String time,
-      @NonNull final DateFormat format) {
+    @NonNull final DateFormat format) {
     return getFriendlyTimeSpanByNow(string2Millis(time, format));
   }
 
@@ -660,8 +660,8 @@ public class TimeUtils {
    * @return the milliseconds differ time span
    */
   public static long getMillis(final long millis,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis + timeSpan2Millis(timeSpan, unit);
   }
 
@@ -682,8 +682,8 @@ public class TimeUtils {
    * @return the milliseconds differ time span
    */
   public static long getMillis(final String time,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return getMillis(time, getDefaultFormat(), timeSpan, unit);
   }
 
@@ -704,9 +704,9 @@ public class TimeUtils {
    * @return the milliseconds differ time span.
    */
   public static long getMillis(final String time,
-      @NonNull final DateFormat format,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return string2Millis(time, format) + timeSpan2Millis(timeSpan, unit);
   }
 
@@ -726,8 +726,8 @@ public class TimeUtils {
    * @return the milliseconds differ time span.
    */
   public static long getMillis(final Date date,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return date2Millis(date) + timeSpan2Millis(timeSpan, unit);
   }
 
@@ -748,8 +748,8 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final long millis,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return getString(millis, getDefaultFormat(), timeSpan, unit);
   }
 
@@ -770,9 +770,9 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final long millis,
-      @NonNull final DateFormat format,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2String(millis + timeSpan2Millis(timeSpan, unit), format);
   }
 
@@ -793,8 +793,8 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final String time,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return getString(time, getDefaultFormat(), timeSpan, unit);
   }
 
@@ -815,9 +815,9 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final String time,
-      @NonNull final DateFormat format,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2String(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit), format);
   }
 
@@ -838,8 +838,8 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final Date date,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return getString(date, getDefaultFormat(), timeSpan, unit);
   }
 
@@ -860,9 +860,9 @@ public class TimeUtils {
    * @return the formatted time string differ time span
    */
   public static String getString(final Date date,
-      @NonNull final DateFormat format,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2String(date2Millis(date) + timeSpan2Millis(timeSpan, unit), format);
   }
 
@@ -882,8 +882,8 @@ public class TimeUtils {
    * @return the date differ time span
    */
   public static Date getDate(final long millis,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2Date(millis + timeSpan2Millis(timeSpan, unit));
   }
 
@@ -904,8 +904,8 @@ public class TimeUtils {
    * @return the date differ time span
    */
   public static Date getDate(final String time,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return getDate(time, getDefaultFormat(), timeSpan, unit);
   }
 
@@ -926,9 +926,9 @@ public class TimeUtils {
    * @return the date differ time span
    */
   public static Date getDate(final String time,
-      @NonNull final DateFormat format,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2Date(string2Millis(time, format) + timeSpan2Millis(timeSpan, unit));
   }
 
@@ -948,8 +948,8 @@ public class TimeUtils {
    * @return the date differ time span
    */
   public static Date getDate(final Date date,
-      final long timeSpan,
-      @TimeConstants.Unit final int unit) {
+    final long timeSpan,
+    @TimeConstants.Unit final int unit) {
     return millis2Date(date2Millis(date) + timeSpan2Millis(timeSpan, unit));
   }
 
@@ -1006,8 +1006,8 @@ public class TimeUtils {
    * @return the formatted time string differ time span by now
    */
   public static String getStringByNow(final long timeSpan,
-      @NonNull final DateFormat format,
-      @TimeConstants.Unit final int unit) {
+    @NonNull final DateFormat format,
+    @TimeConstants.Unit final int unit) {
     return getString(getNowMills(), format, timeSpan, unit);
   }
 
@@ -1246,8 +1246,8 @@ public class TimeUtils {
    * @return the value of the given calendar field
    */
   public static int getValueByCalendarField(final String time,
-      @NonNull final DateFormat format,
-      final int field) {
+    @NonNull final DateFormat format,
+    final int field) {
     return getValueByCalendarField(string2Date(time, format), field);
   }
 
@@ -1400,8 +1400,8 @@ public class TimeUtils {
    */
   public static String getZodiac(final int month, final int day) {
     return ZODIAC[day >= ZODIAC_FLAGS[month - 1]
-        ? month - 1
-        : (month + 10) % 12];
+      ? month - 1
+      : (month + 10) % 12];
   }
 
   private static long timeSpan2Millis(final long timeSpan, @TimeConstants.Unit final int unit) {
@@ -1413,10 +1413,14 @@ public class TimeUtils {
   }
 
   private static String millis2FitTimeSpan(long millis, int precision) {
-    if (precision <= 0) return null;
+    if (precision <= 0) {
+      return null;
+    }
     precision = Math.min(precision, 5);
     String[] units = { "天", "小时", "分钟", "秒", "毫秒" };
-    if (millis == 0) return 0 + units[precision - 1];
+    if (millis == 0) {
+      return 0 + units[precision - 1];
+    }
     StringBuilder sb = new StringBuilder();
     if (millis < 0) {
       sb.append("-");
@@ -1431,5 +1435,16 @@ public class TimeUtils {
       }
     }
     return sb.toString();
+  }
+
+  public static int[] date2IntArray(Date date) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+
+    int year = calendar.get(Calendar.YEAR);
+    int month = calendar.get(Calendar.MONTH) + 1;
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    return new int[] { year, month, day };
   }
 }

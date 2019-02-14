@@ -7,13 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import com.zii.base.util.AppUtils;
 import com.zii.base.util.SysActionUtils;
+import com.zii.base.util.TimeUtils;
 import com.zii.base.util.ToastUtils;
 import com.zii.base.widget.dialog.PopupDialog;
 import com.zii.base.widget.dialog.PopupItemsDialog;
 import com.zii.base.widget.dialog.TranslucenceDialog;
+import com.zii.base.widget.picker.NumberPickerDialog;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,10 +35,30 @@ public class TestCollection {
   }
 
   public void testQuick(View view) {
-    new AlertDialog.Builder(mActivity)
-      .setMessage("测试内容拉")
-      .setTitle("标题")
-      .show();
+    //new AlertDialog.Builder(mActivity)
+    //  .setMessage("测试内容拉")
+    //  .setTitle("标题")
+    //  .show();
+
+  }
+
+  public void testShowDatePicker(View view) {
+    int[] dateNow = TimeUtils.date2IntArray(new Date());
+    int[] showDate = new int[] { 2018, 2, 12 };
+
+    new NumberPickerDialog(view.getContext())
+      .title("测试标题")
+      .enableDatePicker()
+      .setStartDate(new int[] { dateNow[0] - 100, dateNow[1], dateNow[2] })
+      .setEndDate(dateNow)
+      .setShowDate(showDate)
+      .buildDatePicker()
+      .setResultListener(new NumberPickerDialog.PickerResultListener() {
+        @Override
+        public void onResult(int value1, int value2, int value3) {
+          ToastUtils.showShort(value1 + "  " + value2 + "  " + value3);
+        }
+      }).show();
   }
 
   public void testTakePicture(View view) {
