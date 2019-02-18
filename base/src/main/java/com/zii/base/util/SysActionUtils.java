@@ -54,8 +54,8 @@ public class SysActionUtils {
   public static Object[] takePicture(Activity activity, String saveDir, int requestCode, boolean isTempPicture) {
     if (!Utils.getApp().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
       new AlertDialog.Builder(activity)
-          .setMessage("您的设备不支持相机，无法打开相机")
-          .show();
+        .setMessage("您的设备不支持相机，无法打开相机")
+        .show();
       return null;
     }
 
@@ -68,8 +68,8 @@ public class SysActionUtils {
       fileName = FILE_TAKE_PICTURE_TEMP;
     } else {
       fileName = FILE_PREFIX_TAKE_PICTURE_DCIM
-          + TimeUtils.getNowString(TimeUtils.PATTERN_yyyyMMddHHmmss)
-          + FILE_SUFFIX_TAKE_PICTURE;
+        + TimeUtils.getNowString(TimeUtils.PATTERN_yyyyMMddHHmmss)
+        + FILE_SUFFIX_TAKE_PICTURE;
     }
     String fileParentPath = AppPath.APP_STORAGE_PICTURE;
 
@@ -108,34 +108,34 @@ public class SysActionUtils {
 
   private static boolean checkTakePicturePermissions(final Activity activity) {
     final String[] permissions = new String[] {
-        Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE
+      Manifest.permission.CAMERA,
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      Manifest.permission.READ_EXTERNAL_STORAGE
     };
     if (PermissionUtils.isGranted(permissions)) {
       return true;
     }
     PermissionUtils.permission(PermissionConstants.CAMERA, PermissionConstants.STORAGE)
-        .callback(new PermissionUtils.SimpleCallback() {
-          @Override
-          public void onGranted() {
+      .callback(new PermissionUtils.SimpleCallback() {
+        @Override
+        public void onGranted() {
 
-          }
+        }
 
-          @Override
-          public void onDenied() {
-            new AlertDialog.Builder(ActivityUtils.getTopActivity())
-                .setMessage("无法打开相机，缺少相关权限，请授权相机，及存储权限")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                    PermissionUtils.launchAppDetailsSettings();
-                  }
-                })
-                .setNegativeButton("取消", null)
-                .show();
-          }
-        }).request();
+        @Override
+        public void onDenied() {
+          new AlertDialog.Builder(ActivityUtils.getTopActivity())
+            .setMessage("无法打开相机，缺少相关权限，请授权相机，及存储权限")
+            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                PermissionUtils.launchAppDetailsSettings();
+              }
+            })
+            .setNegativeButton("取消", null)
+            .show();
+        }
+      }).request();
 
     return false;
   }

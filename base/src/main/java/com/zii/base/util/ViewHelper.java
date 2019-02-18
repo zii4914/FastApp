@@ -201,8 +201,8 @@ public class ViewHelper {
     ViewGroup.LayoutParams lp = view.getLayoutParams();
     if (lp == null) {
       lp = new ViewGroup.LayoutParams(
-          ViewGroup.LayoutParams.MATCH_PARENT,
-          ViewGroup.LayoutParams.WRAP_CONTENT
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
       );
     }
     int widthSpec = ViewGroup.getChildMeasureSpec(0, 0, lp.width);
@@ -230,7 +230,7 @@ public class ViewHelper {
   }
 
   public static Drawable generatePressedSelector(@DrawableRes int pressed,
-      @DrawableRes int normal) {
+    @DrawableRes int normal) {
     return generateSelector(android.R.attr.state_pressed, pressed, normal);
   }
 
@@ -269,13 +269,13 @@ public class ViewHelper {
    * @return 选择器
    */
   public static Drawable generateSelector(int stateAttr, @DrawableRes int resIdTrue,
-      @DrawableRes int resIdFalse) {
+    @DrawableRes int resIdFalse) {
     return generateSelector(stateAttr, ResourceUtils.getDrawable(resIdTrue),
-        ResourceUtils.getDrawable(resIdFalse));
+      ResourceUtils.getDrawable(resIdFalse));
   }
 
   public static Drawable generateSelector(int stateAttr, Drawable drawableTrue,
-      Drawable drawableFalse) {
+    Drawable drawableFalse) {
     StateListDrawable stateListDrawable = new StateListDrawable();
     stateListDrawable.addState(new int[] { stateAttr }, drawableTrue);
     stateListDrawable.addState(new int[] { -stateAttr }, drawableFalse);

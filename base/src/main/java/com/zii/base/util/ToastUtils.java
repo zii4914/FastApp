@@ -122,7 +122,7 @@ public class ToastUtils {
    * Show the toast for a short period of time.
    *
    * @param resId The resource id for text.
-   * @param args  The args.
+   * @param args The args.
    */
   public static void showShort(@StringRes final int resId, final Object... args) {
     show(resId, Toast.LENGTH_SHORT, args);
@@ -132,7 +132,7 @@ public class ToastUtils {
    * Show the toast for a short period of time.
    *
    * @param format The format.
-   * @param args   The args.
+   * @param args The args.
    */
   public static void showShort(final String format, final Object... args) {
     show(format, Toast.LENGTH_SHORT, args);
@@ -160,7 +160,7 @@ public class ToastUtils {
    * Show the toast for a long period of time.
    *
    * @param resId The resource id for text.
-   * @param args  The args.
+   * @param args The args.
    */
   public static void showLong(@StringRes final int resId, final Object... args) {
     show(resId, Toast.LENGTH_LONG, args);
@@ -170,7 +170,7 @@ public class ToastUtils {
    * Show the toast for a long period of time.
    *
    * @param format The format.
-   * @param args   The args.
+   * @param args The args.
    */
   public static void showLong(final String format, final Object... args) {
     show(format, Toast.LENGTH_LONG, args);
@@ -288,7 +288,7 @@ public class ToastUtils {
       Drawable background = toastView.getBackground();
       if (background != null) {
         background.setColorFilter(
-            new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
+          new PorterDuffColorFilter(sBgColor, PorterDuff.Mode.SRC_IN)
         );
       } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -324,7 +324,7 @@ public class ToastUtils {
 
   private static View getView(@LayoutRes final int layoutId) {
     LayoutInflater inflate =
-        (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      (LayoutInflater) Utils.getApp().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     //noinspection ConstantConditions
     return inflate.inflate(layoutId, null);
   }
@@ -334,8 +334,11 @@ public class ToastUtils {
     void show();
 
     void cancel();
+
     View getView();
+
     void setView(View view);
+
     void setDuration(int duration);
 
     void setGravity(int gravity, int xOffset, int yOffset);
@@ -401,6 +404,7 @@ public class ToastUtils {
     }
 
     static class SafeHandler extends Handler {
+
       private Handler impl;
 
       SafeHandler(Handler impl) {
@@ -426,13 +430,15 @@ public class ToastUtils {
   static class ToastWithoutNotification extends AbsToast {
 
     private static final Utils.OnActivityDestroyedListener LISTENER =
-        new Utils.OnActivityDestroyedListener() {
-          @Override
-          public void onActivityDestroyed(Activity activity) {
-            if (iToast == null) return;
-            iToast.cancel();
+      new Utils.OnActivityDestroyedListener() {
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+          if (iToast == null) {
+            return;
           }
-        };
+          iToast.cancel();
+        }
+      };
     private View mView;
 
     private WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
@@ -445,7 +451,9 @@ public class ToastUtils {
     @Override
     public void show() {
       mView = mToast.getView();
-      if (mView == null) return;
+      if (mView == null) {
+        return;
+      }
       final Context context = mToast.getView().getContext();
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
         mWM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -471,8 +479,8 @@ public class ToastUtils {
 
       final Configuration config = context.getResources().getConfiguration();
       final int gravity = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-          ? Gravity.getAbsoluteGravity(mToast.getGravity(), config.getLayoutDirection())
-          : mToast.getGravity();
+        ? Gravity.getAbsoluteGravity(mToast.getGravity(), config.getLayoutDirection())
+        : mToast.getGravity();
 
       mParams.y = mToast.getYOffset();
       mParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -482,8 +490,8 @@ public class ToastUtils {
 
       mParams.setTitle("ToastWithoutNotification");
       mParams.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-          | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-          | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
       mParams.gravity = gravity;
       if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL) {
         mParams.horizontalWeight = 1.0f;

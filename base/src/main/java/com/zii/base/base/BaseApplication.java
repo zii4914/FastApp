@@ -28,10 +28,7 @@ public class BaseApplication extends Application {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
       Log.d(TAG, "onActivityCreated() called with: activity = ["
-          + activity
-          + "], savedInstanceState = ["
-          + savedInstanceState
-          + "]");
+        + activity + "], savedInstanceState = [" + savedInstanceState + "]");
     }
 
     @Override
@@ -56,12 +53,8 @@ public class BaseApplication extends Application {
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-      Log.d(TAG,
-          "onActivitySaveInstanceState() called with: activity = ["
-              + activity
-              + "], outState = ["
-              + outState
-              + "]");
+      Log.d(TAG, "onActivitySaveInstanceState() called with: activity = [" + activity + "]"
+        + ", outState = [" + outState + "]");
     }
 
     @Override
@@ -88,12 +81,12 @@ public class BaseApplication extends Application {
     Utils.init(this);
     CrashUtils.init();
     FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-        .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
-        .methodCount(1)         // (Optional) How many method line to show. Default 2
-        //.methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
-        //.logStrategy(new ) // (Optional) Changes the log strategy to print out. Default LogCat
-        .tag("zii-")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
-        .build();
+      .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+      .methodCount(1)         // (Optional) How many method line to show. Default 2
+      //.methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+      //.logStrategy(new ) // (Optional) Changes the log strategy to print out. Default LogCat
+      .tag("zii-")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+      .build();
     Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
       @Override
       public boolean isLoggable(int priority, @Nullable String tag) {

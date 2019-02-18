@@ -43,8 +43,8 @@ public class CrashUtils {
   static {
     try {
       PackageInfo pi = Utils.getApp()
-          .getPackageManager()
-          .getPackageInfo(Utils.getApp().getPackageName(), 0);
+        .getPackageManager()
+        .getPackageInfo(Utils.getApp().getPackageName(), 0);
       if (pi != null) {
         versionName = pi.versionName;
         versionCode = pi.versionCode;
@@ -99,14 +99,14 @@ public class CrashUtils {
   private static String getCrashInfo(Throwable e, String time) {
     final StringBuilder sb = new StringBuilder();
     final String head = "************* Log Head ****************" +
-        "\nTime Of Crash      : " + time +
-        "\nDevice Manufacturer: " + Build.MANUFACTURER +
-        "\nDevice Model       : " + Build.MODEL +
-        "\nAndroid Version    : " + Build.VERSION.RELEASE +
-        "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
-        "\nApp VersionName    : " + versionName +
-        "\nApp VersionCode    : " + versionCode +
-        "\n************* Log Head ****************\n\n";
+      "\nTime Of Crash      : " + time +
+      "\nDevice Manufacturer: " + Build.MANUFACTURER +
+      "\nDevice Model       : " + Build.MODEL +
+      "\nAndroid Version    : " + Build.VERSION.RELEASE +
+      "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
+      "\nApp VersionName    : " + versionName +
+      "\nApp VersionCode    : " + versionCode +
+      "\n************* Log Head ****************\n\n";
     sb.append(head);
     StringWriter sw = new StringWriter();
     PrintWriter pw = new PrintWriter(sw);
@@ -219,7 +219,7 @@ public class CrashUtils {
       dir = crashDirPath.endsWith(FILE_SEP) ? crashDirPath : crashDirPath + FILE_SEP;
     }
     if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-        && Utils.getApp().getExternalCacheDir() != null) {
+      && Utils.getApp().getExternalCacheDir() != null) {
       defaultDir = Utils.getApp().getExternalCacheDir() + FILE_SEP + "crash" + FILE_SEP;
     } else {
       defaultDir = Utils.getApp().getCacheDir() + FILE_SEP + "crash" + FILE_SEP;
@@ -256,7 +256,9 @@ public class CrashUtils {
       }
     });
     try {
-      if (submit.get()) return;
+      if (submit.get()) {
+        return;
+      }
     } catch (InterruptedException e) {
       e.printStackTrace();
     } catch (ExecutionException e) {
@@ -271,8 +273,12 @@ public class CrashUtils {
 
   private static boolean createOrExistsFile(final String filePath) {
     File file = new File(filePath);
-    if (file.exists()) return file.isFile();
-    if (!createOrExistsDir(file.getParentFile())) return false;
+    if (file.exists()) {
+      return file.isFile();
+    }
+    if (!createOrExistsDir(file.getParentFile())) {
+      return false;
+    }
     try {
       return file.createNewFile();
     } catch (IOException e) {
@@ -286,7 +292,9 @@ public class CrashUtils {
   }
 
   private static boolean isSpace(final String s) {
-    if (s == null) return true;
+    if (s == null) {
+      return true;
+    }
     for (int i = 0, len = s.length(); i < len; ++i) {
       if (!Character.isWhitespace(s.charAt(i))) {
         return false;

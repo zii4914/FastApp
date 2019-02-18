@@ -2,6 +2,7 @@ package com.zii.base.net;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 import com.orhanobut.logger.Logger;
 import com.zii.base.util.PathUtils;
@@ -65,8 +66,8 @@ public class ApiManager {
       @Override
       public ObservableSource<T> apply(Observable<T> upstream) {
         return upstream
-            .compose(ApiManager.<T>applyLoadingShow(activity))
-            .compose(ApiManager.<T>applyCommonScheduler());
+          .compose(ApiManager.<T>applyLoadingShow(activity))
+          .compose(ApiManager.<T>applyCommonScheduler());
       }
     };
   }
@@ -77,8 +78,8 @@ public class ApiManager {
       @Override
       public ObservableSource<T> apply(Observable<T> upstream) {
         return upstream
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread());
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread());
       }
     };
   }
@@ -95,8 +96,8 @@ public class ApiManager {
         return upstream.doOnSubscribe(new Consumer<Disposable>() {
           @Override
           public void accept(Disposable disposable) {
-            //Log.d("zii-", "on subscribe");
-            //Log.d("zii-", "Loading Show");
+            Log.d("zii-", "on subscribe");
+            Log.d("zii-", "Loading Show");
             Activity context;
             if ((context = activityWeakReference.get()) != null && !context.isFinishing()) {
               loadingDialog.show();
@@ -106,9 +107,9 @@ public class ApiManager {
           @Override
           public void run() {
             Activity context;
-            //Log.d("zii-", "on terminate");
+            Log.d("zii-", "on terminate");
             if ((context = activityWeakReference.get()) != null && !context.isFinishing()) {
-              //Log.d("zii-", "Loading Dismiss Terminate");
+              Log.d("zii-", "Loading Dismiss Terminate");
               loadingDialog.dismiss();
             }
           }
@@ -116,9 +117,9 @@ public class ApiManager {
           @Override
           public void run() {
             Activity context;
-            //Log.d("zii-", "on dispose");
+            Log.d("zii-", "on dispose");
             if ((context = activityWeakReference.get()) != null && !context.isFinishing()) {
-              //Log.d("zii-", "Loading Dismiss Dispose");
+              Log.d("zii-", "Loading Dismiss Dispose");
               loadingDialog.dismiss();
             }
           }
@@ -133,23 +134,23 @@ public class ApiManager {
 
   private Retrofit getRetrofit() {
     return new Retrofit.Builder()
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
-        .client(getOkHttpClient())
-        .build();
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .baseUrl(BASE_URL)
+      .client(getOkHttpClient())
+      .build();
   }
 
   private OkHttpClient getOkHttpClient() {
     Cache cache = new Cache(new File(CACHE_PATH), CACHE_SIZE);
     return new OkHttpClient.Builder()
-        .addInterceptor(new AppInterceptor())
-        .addInterceptor(new LoggingInterception())
-        .connectTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
-        .readTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
-        .writeTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
-        .cache(cache)
-        .build();
+      .addInterceptor(new AppInterceptor())
+      .addInterceptor(new LoggingInterception())
+      .connectTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
+      .readTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
+      .writeTimeout(TIMEOUT_NET, TimeUnit.SECONDS)
+      .cache(cache)
+      .build();
   }
 
   public class AppInterceptor implements Interceptor {
@@ -188,15 +189,15 @@ public class ApiManager {
         }
       }
       String requestMsg =
-          "Request Url: "
-              + request.url()
-              + "\n"
-              //+ "  _______________________________________________________________________________________________________________________________________________________________________________\n"
-              + (!TextUtils.isEmpty(reqBodyContent) ? "RequestBody:" + (reqBodyContent.length() > 5000 ?
-              reqBodyContent.substring(0, 5000) : reqBodyContent) : "No RequestBody " + "")
-              + "\n"
-              + (request.headers().size() != 0 ? "Headers:" + request.headers() : "No Headers \n")
-              + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+        "Request Url: "
+          + request.url()
+          + "\n"
+          //+ "  _______________________________________________________________________________________________________________________________________________________________________________\n"
+          + (!TextUtils.isEmpty(reqBodyContent) ? "RequestBody:" + (reqBodyContent.length() > 5000 ?
+          reqBodyContent.substring(0, 5000) : reqBodyContent) : "No RequestBody " + "")
+          + "\n"
+          + (request.headers().size() != 0 ? "Headers:" + request.headers() : "No Headers \n")
+          + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
 
       Logger.d("net", requestMsg);
       //Log.d("zii-net", requestMsg);
@@ -215,16 +216,16 @@ public class ApiManager {
       }
 
       String responseMsg = "Response Url: "
-          + request.url()
-          + "\n"
-          //+ "  _______________________________________________________________________________________________________________________________________________________________________________\n"
-          //"" + "Url:" + request.url() + "\n"
-          + "ResponseCode:"
-          + response.code()
-          + "\n"
-          + (!TextUtils.isEmpty(respBodyContent) ? "ResponseBody:" + respBodyContent : "No ResponseBody ")
-          + "\n"
-          + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+        + request.url()
+        + "\n"
+        //+ "  _______________________________________________________________________________________________________________________________________________________________________________\n"
+        //"" + "Url:" + request.url() + "\n"
+        + "ResponseCode:"
+        + response.code()
+        + "\n"
+        + (!TextUtils.isEmpty(respBodyContent) ? "ResponseBody:" + respBodyContent : "No ResponseBody ")
+        + "\n"
+        + "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
       Logger.d("net", responseMsg);
       //Log.d("zii-net", responseMsg);
       return response;

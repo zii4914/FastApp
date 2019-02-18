@@ -77,8 +77,8 @@ public final class PermissionUtils {
     PackageManager pm = Utils.getApp().getPackageManager();
     try {
       return Arrays.asList(
-          pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
-              .requestedPermissions
+        pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
+          .requestedPermissions
       );
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
@@ -103,8 +103,8 @@ public final class PermissionUtils {
 
   private static boolean isGranted(final String permission) {
     return Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-        || PackageManager.PERMISSION_GRANTED
-        == ContextCompat.checkSelfPermission(Utils.getApp(), permission);
+      || PackageManager.PERMISSION_GRANTED
+      == ContextCompat.checkSelfPermission(Utils.getApp(), permission);
   }
 
   /**
@@ -123,7 +123,7 @@ public final class PermissionUtils {
    * @return the single {@link PermissionUtils} instance
    */
   public static PermissionUtils permission(
-      @PermissionConstants.Permission final String... permissions) {
+    @PermissionConstants.Permission final String... permissions) {
     return new PermissionUtils(permissions);
   }
 
@@ -245,7 +245,7 @@ public final class PermissionUtils {
   private void requestCallback() {
     if (mSimpleCallback != null) {
       if (mPermissionsRequest.size() == 0
-          || mPermissions.size() == mPermissionsGranted.size()) {
+        || mPermissions.size() == mPermissionsGranted.size()) {
         mSimpleCallback.onGranted();
       } else {
         if (!mPermissionsDenied.isEmpty()) {
@@ -256,7 +256,7 @@ public final class PermissionUtils {
     }
     if (mFullCallback != null) {
       if (mPermissionsRequest.size() == 0
-          || mPermissions.size() == mPermissionsGranted.size()) {
+        || mPermissions.size() == mPermissionsGranted.size()) {
         mFullCallback.onGranted(mPermissionsGranted);
       } else {
         if (!mPermissionsDenied.isEmpty()) {
@@ -329,7 +329,7 @@ public final class PermissionUtils {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-          | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+        | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
       if (sInstance == null) {
         super.onCreate(savedInstanceState);
         Log.e("PermissionUtils", "request permissions failed");
@@ -357,8 +357,8 @@ public final class PermissionUtils {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-        @NonNull String[] permissions,
-        @NonNull int[] grantResults) {
+      @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
       sInstance.onRequestPermissionsResult(this);
       finish();
     }

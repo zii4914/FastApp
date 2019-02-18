@@ -112,10 +112,10 @@ public class ScreenUtils {
     Window window = activity.getWindow();
     if ((window.getAttributes().flags & fullScreenFlag) == fullScreenFlag) {
       window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-          | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     } else {
       window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-          | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
   }
 
@@ -155,7 +155,7 @@ public class ScreenUtils {
    */
   public static boolean isLandscape() {
     return Utils.getApp().getResources().getConfiguration().orientation
-        == Configuration.ORIENTATION_LANDSCAPE;
+      == Configuration.ORIENTATION_LANDSCAPE;
   }
 
   /**
@@ -165,7 +165,7 @@ public class ScreenUtils {
    */
   public static boolean isPortrait() {
     return Utils.getApp().getResources().getConfiguration().orientation
-        == Configuration.ORIENTATION_PORTRAIT;
+      == Configuration.ORIENTATION_PORTRAIT;
   }
 
   /**
@@ -202,7 +202,7 @@ public class ScreenUtils {
   /**
    * Return the bitmap of screen.
    *
-   * @param activity          The activity.
+   * @param activity The activity.
    * @param isDeleteStatusBar True to delete status bar, false otherwise.
    * @return the bitmap of screen
    */
@@ -211,7 +211,9 @@ public class ScreenUtils {
     decorView.setDrawingCacheEnabled(true);
     decorView.setWillNotCacheDrawing(false);
     Bitmap bmp = decorView.getDrawingCache();
-    if (bmp == null) return null;
+    if (bmp == null) {
+      return null;
+    }
     DisplayMetrics dm = new DisplayMetrics();
     activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
     Bitmap ret;
@@ -220,11 +222,11 @@ public class ScreenUtils {
       int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
       int statusBarHeight = resources.getDimensionPixelSize(resourceId);
       ret = Bitmap.createBitmap(
-          bmp,
-          0,
-          statusBarHeight,
-          dm.widthPixels,
-          dm.heightPixels - statusBarHeight
+        bmp,
+        0,
+        statusBarHeight,
+        dm.widthPixels,
+        dm.heightPixels - statusBarHeight
       );
     } else {
       ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels);
@@ -240,7 +242,7 @@ public class ScreenUtils {
    */
   public static boolean isScreenLock() {
     KeyguardManager km =
-        (KeyguardManager) Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
+      (KeyguardManager) Utils.getApp().getSystemService(Context.KEYGUARD_SERVICE);
     //noinspection ConstantConditions
     return km.inKeyguardRestrictedInputMode();
   }
@@ -254,9 +256,9 @@ public class ScreenUtils {
   @RequiresPermission(WRITE_SETTINGS)
   public static void setSleepDuration(final int duration) {
     Settings.System.putInt(
-        Utils.getApp().getContentResolver(),
-        Settings.System.SCREEN_OFF_TIMEOUT,
-        duration
+      Utils.getApp().getContentResolver(),
+      Settings.System.SCREEN_OFF_TIMEOUT,
+      duration
     );
   }
 
@@ -268,8 +270,8 @@ public class ScreenUtils {
   public static int getSleepDuration() {
     try {
       return Settings.System.getInt(
-          Utils.getApp().getContentResolver(),
-          Settings.System.SCREEN_OFF_TIMEOUT
+        Utils.getApp().getContentResolver(),
+        Settings.System.SCREEN_OFF_TIMEOUT
       );
     } catch (Settings.SettingNotFoundException e) {
       e.printStackTrace();
@@ -284,7 +286,7 @@ public class ScreenUtils {
    */
   public static boolean isTablet() {
     return (Utils.getApp().getResources().getConfiguration().screenLayout
-        & Configuration.SCREENLAYOUT_SIZE_MASK)
-        >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+      & Configuration.SCREENLAYOUT_SIZE_MASK)
+      >= Configuration.SCREENLAYOUT_SIZE_LARGE;
   }
 }

@@ -20,7 +20,7 @@ ext.versions = [
 
     //support lib
     "supportLib": '27.1.1',
-    "supportX": '1.0.0',
+    "androidx": '1.0.0',
 
     //google
     "constrainLayout": '1.1.1',
@@ -59,24 +59,26 @@ ext.versions = [
 
 ext.libs = [
     //test
-    "junit": "junit:junit:$versions.junit",
-    "testRunner": "com.android.support.test:runner:$versions.testRunner",
-    "espressoCore": "com.android.support.test.espresso:espresso-core:$versions.espressoCore",
+    "Junit": "junit:junit:$versions.junit",
+    "TestRunner": "com.android.support.test:runner:$versions.testRunner",
+    "EspressoCore": "com.android.support.test.espresso:espresso-core:$versions.espressoCore",
+
+    //androidx
+    "AndroidX_AppCompat": "androidx.appcompat:appcompat:$versions.androidx",
 
     //support libs
-    "Support_appcompat_v7": "com.android.support:appcompat-v7:$versions.supportLib",
-    "Support_appcompat_x": "androidx.appcompat:appcompat:$versions.supportX",
-    "Support_animated_vector_drawable": "com.android.support:animated-vector-drawable:$versions.supportLib",
-    "Support_preference_v7": "com.android.support:preference-v7:$versions.supportLib",
-    "Support_recyclerview_v7": "com.android.support:recyclerview-v7:$versions.supportLib",
-    "Support_support_annotations": "com.android.support:support-annotations:$versions.supportLib",
-    "Support_support_compat": "com.android.support:support-compat:$versions.supportLib",
-    "Support_support_core_ui": "com.android.support:support-core-ui:$versions.supportLib",
-    "Support_support_core_utils": "com.android.support:support-core-utils:$versions.supportLib",
-    "Support_support_fragment": "com.android.support:support-fragment:$versions.supportLib",
-    "Support_support_media_compat": "com.android.support:support-media-compat:$versions.supportLib",
-    "Support_support_vector_drawable": "com.android.support:support-vector-drawable:$versions.supportLib",
-    "Support_design": "com.android.support:design:$versions.supportLib",
+    "SupportLib_Appcompat_v7": "com.android.support:appcompat-v7:$versions.supportLib",
+    "SupportLib_Animated_vector_drawable": "com.android.support:animated-vector-drawable:$versions.supportLib",
+    "SupportLib_Preference_v7": "com.android.support:preference-v7:$versions.supportLib",
+    "SupportLib_Recyclerview_v7": "com.android.support:recyclerview-v7:$versions.supportLib",
+    "SupportLib_Annotations": "com.android.support:support-annotations:$versions.supportLib",
+    "SupportLib_Compat": "com.android.support:support-compat:$versions.supportLib",
+    "SupportLib_Core_Ui": "com.android.support:support-core-ui:$versions.supportLib",
+    "SupportLib_Core_Utils": "com.android.support:support-core-utils:$versions.supportLib",
+    "SupportLib_Fragment": "com.android.support:support-fragment:$versions.supportLib",
+    "SupportLib_Media_Compat": "com.android.support:support-media-compat:$versions.supportLib",
+    "SupportLib_Vector_Drawable": "com.android.support:support-vector-drawable:$versions.supportLib",
+    "SupportLib_Design": "com.android.support:design:$versions.supportLib",
 
     //google
     "ConstrainLayout": "com.android.support.constraint:constraint-layout:$versions.constrainLayout",

@@ -70,9 +70,9 @@ public class ResourceUtils {
         }
       } else {
         res = writeFileFromIS(
-            destFilePath,
-            Utils.getApp().getAssets().open(assetsFilePath),
-            false
+          destFilePath,
+          Utils.getApp().getAssets().open(assetsFilePath),
+          false
         );
       }
     } catch (IOException e) {
@@ -108,7 +108,9 @@ public class ResourceUtils {
       return null;
     }
     byte[] bytes = is2Bytes(is);
-    if (bytes == null) return null;
+    if (bytes == null) {
+      return null;
+    }
     if (isSpace(charsetName)) {
       return new String(bytes);
     } else {
@@ -139,7 +141,7 @@ public class ResourceUtils {
    * @return the content of file in assets
    */
   public static List<String> readAssets2List(final String assetsPath,
-      final String charsetName) {
+    final String charsetName) {
     try {
       return is2List(Utils.getApp().getResources().getAssets().open(assetsPath), charsetName);
     } catch (IOException e) {
@@ -157,9 +159,9 @@ public class ResourceUtils {
    */
   public static boolean copyFileFromRaw(@RawRes final int resId, final String destFilePath) {
     return writeFileFromIS(
-        destFilePath,
-        Utils.getApp().getResources().openRawResource(resId),
-        false
+      destFilePath,
+      Utils.getApp().getResources().openRawResource(resId),
+      false
     );
   }
 
@@ -183,7 +185,9 @@ public class ResourceUtils {
   public static String readRaw2String(@RawRes final int resId, final String charsetName) {
     InputStream is = Utils.getApp().getResources().openRawResource(resId);
     byte[] bytes = is2Bytes(is);
-    if (bytes == null) return null;
+    if (bytes == null) {
+      return null;
+    }
     if (isSpace(charsetName)) {
       return new String(bytes);
     } else {
@@ -214,7 +218,7 @@ public class ResourceUtils {
    * @return the content of file in assets
    */
   public static List<String> readRaw2List(@RawRes final int resId,
-      final String charsetName) {
+    final String charsetName) {
     return is2List(Utils.getApp().getResources().openRawResource(resId), charsetName);
   }
 
@@ -223,15 +227,17 @@ public class ResourceUtils {
   ///////////////////////////////////////////////////////////////////////////
 
   private static boolean writeFileFromIS(final String filePath,
-      final InputStream is,
-      final boolean append) {
+    final InputStream is,
+    final boolean append) {
     return writeFileFromIS(getFileByPath(filePath), is, append);
   }
 
   private static boolean writeFileFromIS(final File file,
-      final InputStream is,
-      final boolean append) {
-    if (!createOrExistsFile(file) || is == null) return false;
+    final InputStream is,
+    final boolean append) {
+    if (!createOrExistsFile(file) || is == null) {
+      return false;
+    }
     OutputStream os = null;
     try {
       os = new BufferedOutputStream(new FileOutputStream(file, append));
@@ -265,9 +271,15 @@ public class ResourceUtils {
   }
 
   private static boolean createOrExistsFile(final File file) {
-    if (file == null) return false;
-    if (file.exists()) return file.isFile();
-    if (!createOrExistsDir(file.getParentFile())) return false;
+    if (file == null) {
+      return false;
+    }
+    if (file.exists()) {
+      return file.isFile();
+    }
+    if (!createOrExistsDir(file.getParentFile())) {
+      return false;
+    }
     try {
       return file.createNewFile();
     } catch (IOException e) {
@@ -281,7 +293,9 @@ public class ResourceUtils {
   }
 
   private static boolean isSpace(final String s) {
-    if (s == null) return true;
+    if (s == null) {
+      return true;
+    }
     for (int i = 0, len = s.length(); i < len; ++i) {
       if (!Character.isWhitespace(s.charAt(i))) {
         return false;
@@ -291,7 +305,9 @@ public class ResourceUtils {
   }
 
   private static byte[] is2Bytes(final InputStream is) {
-    if (is == null) return null;
+    if (is == null) {
+      return null;
+    }
     ByteArrayOutputStream os = null;
     try {
       os = new ByteArrayOutputStream();
@@ -321,7 +337,7 @@ public class ResourceUtils {
   }
 
   private static List<String> is2List(final InputStream is,
-      final String charsetName) {
+    final String charsetName) {
     BufferedReader reader = null;
     try {
       List<String> list = new ArrayList<>();

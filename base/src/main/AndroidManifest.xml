@@ -1,24 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zii.base">
+  package="com.zii.base">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
   <application android:name=".base.BaseApplication">
     <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="com.zii.base.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
+      android:name="androidx.core.content.FileProvider"
+      android:authorities="com.zii.base.provider"
+      android:exported="false"
+      android:grantUriPermissions="true">
       <meta-data
-          android:name="android.support.FILE_PROVIDER_PATHS"
-          android:resource="@xml/provider_paths"/>
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/provider_paths"/>
     </provider>
     <activity
-        android:name=".util.PermissionUtils$PermissionActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:multiprocess="true"
-        android:theme="@style/ActivityTranslucent"
-        android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
+      android:name=".util.PermissionUtils$PermissionActivity"
+      android:configChanges="orientation|keyboardHidden|screenSize"
+      android:multiprocess="true"
+      android:theme="@style/ActivityTranslucent"
+      android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
   </application>
 </manifest>

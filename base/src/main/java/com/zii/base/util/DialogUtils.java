@@ -24,7 +24,7 @@ public class DialogUtils {
   }
 
   public static void alert(Context context, String title, String message, String positive,
-      DialogInterface.OnClickListener positiveClickListener) {
+    DialogInterface.OnClickListener positiveClickListener) {
     AlertDialog.Builder builder = new AlertDialog.Builder(context);
     if (!TextUtils.isEmpty(title)) {
       builder.setTitle(title);

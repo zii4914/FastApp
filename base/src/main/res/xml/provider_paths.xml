@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
   <external-path
-      path="FastApp"
-      name="fastapp_storage"/>
+    path="FastApp"
+    name="fastapp_storage"/>
   <external-path
-      path="."
-      name="fastapp_storage_all"/>
+    path="."
+    name="fastapp_storage_all"/>
 </paths>

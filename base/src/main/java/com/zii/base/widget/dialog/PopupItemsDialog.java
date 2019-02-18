@@ -68,9 +68,9 @@ public class PopupItemsDialog extends PopupDialog {
     TextView tv = new TextView(getContext());
     tv.setText(text);
     ViewGroup.LayoutParams params =
-        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+      new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     tv.setLayoutParams(
-        params);
+      params);
     tv.setPadding(0, paddingTopBottom, 0, paddingTopBottom);
 
     tv.setBackground(background);

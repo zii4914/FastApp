@@ -231,7 +231,7 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight,
-      @Align final int align) {
+    @Align final int align) {
     this.lineHeight = lineHeight;
     this.alignLine = align;
     return this;
@@ -256,8 +256,8 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setQuoteColor(@ColorInt final int color,
-      @IntRange(from = 1) final int stripeWidth,
-      @IntRange(from = 0) final int gapWidth) {
+    @IntRange(from = 1) final int stripeWidth,
+    @IntRange(from = 0) final int gapWidth) {
     this.quoteColor = color;
     this.stripeWidth = stripeWidth;
     this.quoteGapWidth = gapWidth;
@@ -272,7 +272,7 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setLeadingMargin(@IntRange(from = 0) final int first,
-      @IntRange(from = 0) final int rest) {
+    @IntRange(from = 0) final int rest) {
     this.first = first;
     this.rest = rest;
     return this;
@@ -297,8 +297,8 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setBullet(@ColorInt final int color,
-      @IntRange(from = 0) final int radius,
-      @IntRange(from = 0) final int gapWidth) {
+    @IntRange(from = 0) final int radius,
+    @IntRange(from = 0) final int gapWidth) {
     this.bulletColor = color;
     this.bulletRadius = radius;
     this.bulletGapWidth = gapWidth;
@@ -518,7 +518,7 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius,
-      final Blur style) {
+    final Blur style) {
     this.blurRadius = radius;
     this.style = style;
     return this;
@@ -545,9 +545,9 @@ public final class SpanUtils {
    * @return the single {@link SpanUtils} instance
    */
   public SpanUtils setShadow(@FloatRange(from = 0, fromInclusive = false) final float radius,
-      final float dx,
-      final float dy,
-      final int shadowColor) {
+    final float dx,
+    final float dy,
+    final int shadowColor) {
     this.shadowRadius = radius;
     this.shadowDx = dx;
     this.shadowDy = dy;
@@ -762,12 +762,14 @@ public final class SpanUtils {
   }
 
   private void updateCharCharSequence() {
-    if (mText.length() == 0) return;
+    if (mText.length() == 0) {
+      return;
+    }
     int start = mBuilder.length();
     if (start == 0 && lineHeight != -1) {// bug of LineHeightSpan when first line
       mBuilder.append(Character.toString((char) 2))
-          .append("\n")
-          .setSpan(new AbsoluteSizeSpan(0), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        .append("\n")
+        .setSpan(new AbsoluteSizeSpan(0), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       start = 2;
     }
     mBuilder.append(mText);
@@ -786,18 +788,18 @@ public final class SpanUtils {
     }
     if (quoteColor != COLOR_DEFAULT) {
       mBuilder.setSpan(
-          new CustomQuoteSpan(quoteColor, stripeWidth, quoteGapWidth),
-          start,
-          end,
-          flag
+        new CustomQuoteSpan(quoteColor, stripeWidth, quoteGapWidth),
+        start,
+        end,
+        flag
       );
     }
     if (bulletColor != COLOR_DEFAULT) {
       mBuilder.setSpan(
-          new CustomBulletSpan(bulletColor, bulletRadius, bulletGapWidth),
-          start,
-          end,
-          flag
+        new CustomBulletSpan(bulletColor, bulletRadius, bulletGapWidth),
+        start,
+        end,
+        flag
       );
     }
     if (fontSize != -1) {
@@ -850,10 +852,10 @@ public final class SpanUtils {
     }
     if (blurRadius != -1) {
       mBuilder.setSpan(
-          new MaskFilterSpan(new BlurMaskFilter(blurRadius, style)),
-          start,
-          end,
-          flag
+        new MaskFilterSpan(new BlurMaskFilter(blurRadius, style)),
+        start,
+        end,
+        flag
       );
     }
     if (shader != null) {
@@ -861,10 +863,10 @@ public final class SpanUtils {
     }
     if (shadowRadius != -1) {
       mBuilder.setSpan(
-          new ShadowSpan(shadowRadius, shadowDx, shadowDy, shadowColor),
-          start,
-          end,
-          flag
+        new ShadowSpan(shadowRadius, shadowDx, shadowDy, shadowColor),
+        start,
+        end,
+        flag
       );
     }
     if (spans != null) {
@@ -930,15 +932,15 @@ public final class SpanUtils {
 
     @Override
     public int getSize(@NonNull Paint paint, CharSequence text, int start, int end,
-        @Nullable Paint.FontMetricsInt fm) {
+      @Nullable Paint.FontMetricsInt fm) {
       text = text.subSequence(start, end);
       return (int) paint.measureText(text.toString());
     }
 
     @Override
     public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x,
-        int top, int y, int bottom,
-        @NonNull Paint paint) {
+      int top, int y, int bottom,
+      @NonNull Paint paint) {
       text = text.subSequence(start, end);
       Paint.FontMetricsInt fm = paint.getFontMetricsInt();
       //            int need = height - (v + fm.descent - fm.ascent - spanstartv);
@@ -965,7 +967,7 @@ public final class SpanUtils {
       //            }
 
       canvas.drawText(text.toString(), x,
-          y - ((y + fm.descent + y + fm.ascent) / 2 - (bottom + top) / 2), paint);
+        y - ((y + fm.descent + y + fm.ascent) / 2 - (bottom + top) / 2), paint);
     }
   }
 
@@ -984,7 +986,7 @@ public final class SpanUtils {
 
     @Override
     public void chooseHeight(final CharSequence text, final int start, final int end,
-        final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
+      final int spanstartv, final int v, final Paint.FontMetricsInt fm) {
       if (sfm == null) {
         sfm = new Paint.FontMetricsInt();
         sfm.top = fm.top;
@@ -1044,18 +1046,18 @@ public final class SpanUtils {
 
     @Override
     public int getSize(@NonNull final Paint paint, final CharSequence text,
-        @IntRange(from = 0) final int start,
-        @IntRange(from = 0) final int end,
-        @Nullable final Paint.FontMetricsInt fm) {
+      @IntRange(from = 0) final int start,
+      @IntRange(from = 0) final int end,
+      @Nullable final Paint.FontMetricsInt fm) {
       return width;
     }
 
     @Override
     public void draw(@NonNull final Canvas canvas, final CharSequence text,
-        @IntRange(from = 0) final int start,
-        @IntRange(from = 0) final int end,
-        final float x, final int top, final int y, final int bottom,
-        @NonNull final Paint paint) {
+      @IntRange(from = 0) final int start,
+      @IntRange(from = 0) final int end,
+      final float x, final int top, final int y, final int bottom,
+      @NonNull final Paint paint) {
       Paint.Style style = paint.getStyle();
       int color = paint.getColor();
 
@@ -1087,9 +1089,9 @@ public final class SpanUtils {
     }
 
     public void drawLeadingMargin(final Canvas c, final Paint p, final int x, final int dir,
-        final int top, final int baseline, final int bottom,
-        final CharSequence text, final int start, final int end,
-        final boolean first, final Layout layout) {
+      final int top, final int baseline, final int bottom,
+      final CharSequence text, final int start, final int end,
+      final boolean first, final Layout layout) {
       Paint.Style style = p.getStyle();
       int color = p.getColor();
 
@@ -1122,9 +1124,9 @@ public final class SpanUtils {
     }
 
     public void drawLeadingMargin(final Canvas c, final Paint p, final int x, final int dir,
-        final int top, final int baseline, final int bottom,
-        final CharSequence text, final int start, final int end,
-        final boolean first, final Layout l) {
+      final int top, final int baseline, final int bottom,
+      final CharSequence text, final int start, final int end,
+      final boolean first, final Layout l) {
       if (((Spanned) text).getSpanStart(this) == start) {
         Paint.Style style = p.getStyle();
         int oldColor = 0;
@@ -1204,7 +1206,7 @@ public final class SpanUtils {
       super(verticalAlignment);
       mDrawable = new BitmapDrawable(Utils.getApp().getResources(), b);
       mDrawable.setBounds(
-          0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
+        0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
       );
     }
 
@@ -1212,7 +1214,7 @@ public final class SpanUtils {
       super(verticalAlignment);
       mDrawable = d;
       mDrawable.setBounds(
-          0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
+        0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
       );
     }
 
@@ -1235,11 +1237,11 @@ public final class SpanUtils {
         Bitmap bitmap;
         try {
           InputStream is =
-              Utils.getApp().getContentResolver().openInputStream(mContentUri);
+            Utils.getApp().getContentResolver().openInputStream(mContentUri);
           bitmap = BitmapFactory.decodeStream(is);
           drawable = new BitmapDrawable(Utils.getApp().getResources(), bitmap);
           drawable.setBounds(
-              0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
+            0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
           );
           if (is != null) {
             is.close();
@@ -1251,7 +1253,7 @@ public final class SpanUtils {
         try {
           drawable = ContextCompat.getDrawable(Utils.getApp(), mResourceId);
           drawable.setBounds(
-              0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
+            0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
           );
         } catch (Exception e) {
           Log.e("sms", "Unable to find resource: " + mResourceId);
@@ -1286,7 +1288,7 @@ public final class SpanUtils {
 
     @Override
     public int getSize(@NonNull final Paint paint, final CharSequence text,
-        final int start, final int end, final Paint.FontMetricsInt fm) {
+      final int start, final int end, final Paint.FontMetricsInt fm) {
       Drawable d = getCachedDrawable();
       Rect rect = d.getBounds();
       if (fm != null) {
@@ -1316,8 +1318,8 @@ public final class SpanUtils {
 
     @Override
     public void draw(@NonNull final Canvas canvas, final CharSequence text,
-        final int start, final int end, final float x,
-        final int top, final int y, final int bottom, @NonNull final Paint paint) {
+      final int start, final int end, final float x,
+      final int top, final int y, final int bottom, @NonNull final Paint paint) {
       Drawable d = getCachedDrawable();
       Rect rect = d.getBounds();
       canvas.save();
@@ -1378,9 +1380,9 @@ public final class SpanUtils {
     private int shadowColor;
 
     private ShadowSpan(final float radius,
-        final float dx,
-        final float dy,
-        final int shadowColor) {
+      final float dx,
+      final float dy,
+      final int shadowColor) {
       this.radius = radius;
       this.dx = dx;
       this.dy = dy;

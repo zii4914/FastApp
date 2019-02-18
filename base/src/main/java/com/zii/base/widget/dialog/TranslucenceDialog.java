@@ -97,12 +97,12 @@ public class TranslucenceDialog extends Dialog {
 
   public TranslucenceDialog setButton(@IdRes int id, String text, OnClickChild onClickChild) {
     return setText(id, text)
-        .setChildClickListener(id, onClickChild);
+      .setChildClickListener(id, onClickChild);
   }
 
   public TranslucenceDialog setButton(@IdRes int id, @StringRes int textRes, OnClickChild onClickChild) {
     return setText(id, textRes)
-        .setChildClickListener(id, onClickChild);
+      .setChildClickListener(id, onClickChild);
   }
 
   public TranslucenceDialog setText(@IdRes int id, @StringRes int textRes) {

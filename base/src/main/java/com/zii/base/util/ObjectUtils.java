@@ -66,7 +66,7 @@ public class ObjectUtils {
     }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
       if (obj instanceof android.util.LongSparseArray
-          && ((android.util.LongSparseArray) obj).size() == 0) {
+        && ((android.util.LongSparseArray) obj).size() == 0) {
         return true;
       }
     }
@@ -185,9 +185,13 @@ public class ObjectUtils {
    * @throws NullPointerException if any object is null in objects
    */
   public static void requireNonNull(final Object... objects) {
-    if (objects == null) throw new NullPointerException();
+    if (objects == null) {
+      throw new NullPointerException();
+    }
     for (Object object : objects) {
-      if (object == null) throw new NullPointerException();
+      if (object == null) {
+        throw new NullPointerException();
+      }
     }
   }
 

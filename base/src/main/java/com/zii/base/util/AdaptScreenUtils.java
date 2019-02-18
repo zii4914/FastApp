@@ -73,7 +73,9 @@ public class AdaptScreenUtils {
 
   private static DisplayMetrics getDisplayMetrics(Resources resources) {
     DisplayMetrics miuiDisplayMetrics = getMiuiTmpMetrics(resources);
-    if (miuiDisplayMetrics == null) return resources.getDisplayMetrics();
+    if (miuiDisplayMetrics == null) {
+      return resources.getDisplayMetrics();
+    }
     return miuiDisplayMetrics;
   }
 
@@ -93,7 +95,9 @@ public class AdaptScreenUtils {
       isInitMiui = true;
       return ret;
     }
-    if (mTmpMetrics == null) return null;
+    if (mTmpMetrics == null) {
+      return null;
+    }
     try {
       return (DisplayMetrics) mTmpMetrics.get(resources);
     } catch (Exception e) {

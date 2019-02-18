@@ -13,8 +13,7 @@ import com.zii.base.base.BaseActivity;
  *
  * <p> BaseMvpActivity Create by Zii at 2018/6/14. </p>
  */
-public abstract class BaseMvpActivity<T extends IBaseMvpPresenter> extends BaseActivity
-    implements IBaseMvpView {
+public abstract class BaseMvpActivity<T extends IBaseMvpPresenter> extends BaseActivity implements IBaseMvpView {
 
   protected View mContentView;
 

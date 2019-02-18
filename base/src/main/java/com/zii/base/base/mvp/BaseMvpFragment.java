@@ -20,8 +20,7 @@ import com.zii.base.base.BaseFragment;
  *
  * <p> BaseMvpFragment Create by Zii at 2018/6/14. </p>
  */
-public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseFragment
-    implements IBaseMvpView {
+public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseFragment implements IBaseMvpView {
 
   private static final String TAG = "BaseMvpFragment";
   private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
@@ -51,7 +50,7 @@ public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseF
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+    @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "onCreateView: ");
     initPresenter();
     setBaseView(inflater, bindLayout());
@@ -104,7 +103,9 @@ public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseF
 
   @Override
   public void onClick(final View view) {
-    if (!isFastClick()) onWidgetClick(view);
+    if (!isFastClick()) {
+      onWidgetClick(view);
+    }
   }
 
   @Override
@@ -134,7 +135,9 @@ public abstract class BaseMvpFragment<T extends IBaseMvpPresenter> extends BaseF
   }
 
   public <T extends View> T findViewById(@IdRes int id) {
-    if (mContentView == null) throw new NullPointerException("ContentView is null.");
+    if (mContentView == null) {
+      throw new NullPointerException("ContentView is null.");
+    }
     return mContentView.findViewById(id);
   }
 }

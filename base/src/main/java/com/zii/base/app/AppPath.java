@@ -15,13 +15,13 @@ public class AppPath {
   public static final String APP_STORAGE = PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME;
 
   public static final String APP_STORAGE_PICTURE =
-      PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "Picture";
+    PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "Picture";
 
   public static final String APP_STORAGE_VIDEO =
-      PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "Video";
+    PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "Video";
 
   public static final String APP_STORAGE_FILE =
-      PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "File";
+    PathUtils.getExternalStoragePath() + File.separator + APP_STORAGE_NAME + File.separator + "File";
 
   public static final String APP_FILE_DCIM = PathUtils.getExternalAppDcimPath();
 

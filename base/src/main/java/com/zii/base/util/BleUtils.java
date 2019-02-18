@@ -19,8 +19,8 @@ public class BleUtils {
 
   public static final int REQ_CODE_ENABLE_BLE = 0x01998;
   private static final String[] PERMISSION_LOCATION = new String[] {
-      Manifest.permission.ACCESS_COARSE_LOCATION,
-      Manifest.permission.ACCESS_COARSE_LOCATION
+    Manifest.permission.ACCESS_COARSE_LOCATION,
+    Manifest.permission.ACCESS_COARSE_LOCATION
   };
 
   @RequiresPermission(Manifest.permission.BLUETOOTH)
@@ -43,16 +43,16 @@ public class BleUtils {
 
   public static void requestLocationPermission(PermissionUtils.SimpleCallback callback) {
     PermissionUtils.permission(PERMISSION_LOCATION)
-        .callback(callback)
-        .request();
+      .callback(callback)
+      .request();
   }
 
   public static boolean isSupport() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-        && Utils.getApp()
-        .getApplicationContext()
-        .getPackageManager()
-        .hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
+      && Utils.getApp()
+      .getApplicationContext()
+      .getPackageManager()
+      .hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
   }
 
   public static void requestEnableBle(Object target) {
@@ -83,14 +83,14 @@ public class BleUtils {
         @Override
         public void onDenied() {
           new AlertDialog.Builder(Utils.getTopActivityOrApp())
-              .setMessage("搜索连接蓝牙设备，需要授权位置权限")
-              .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                  PermissionUtils.launchAppDetailsSettings();
-                }
-              })
-              .show();
+            .setMessage("搜索连接蓝牙设备，需要授权位置权限")
+            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                PermissionUtils.launchAppDetailsSettings();
+              }
+            })
+            .show();
         }
       });
       return false;
