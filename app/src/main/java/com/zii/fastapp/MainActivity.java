@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     //mTestCollection.testPopupDialog(view);
     //mTestCollection.testTakePicture(view);
     //mTestCollection.testQuick(view);
-    mTestCollection.testShowDatePicker(view);
+    //mTestCollection.testShowDatePicker(view);
+    mTestCollection.testRetrofitUtils();
     //mTv.setText(getDisplayText());
   }
 
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
       case 111:
         o = mTestCollection.onReceiverResult(requestCode, resultCode, data);
         mIv.setImageURI((Uri) o);
+        break;
+      default:
         break;
     }
   }

@@ -26,7 +26,7 @@ import java.util.Locale;
 public class FileUtils {
 
   private static final String LINE_SEP = System.getProperty("line.separator");
-  private static final char HEX_DIGITS[] =
+  private static final char[] HEX_DIGITS =
     { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
   private FileUtils() {
@@ -469,8 +469,8 @@ public class FileUtils {
       return false;
     }
     if (destDir.exists()) {
-      if (listener == null || listener.onReplace()) {// require delete the old directory
-        if (!deleteAllInDir(destDir)) {// unsuccessfully delete then return false
+      if (listener == null || listener.onReplace()) { // require delete the old directory
+        if (!deleteAllInDir(destDir)) { // unsuccessfully delete then return false
           return false;
         }
       } else {
@@ -523,8 +523,8 @@ public class FileUtils {
       return false;
     }
     if (destFile.exists()) {
-      if (listener == null || listener.onReplace()) {// require delete the old file
-        if (!destFile.delete()) {// unsuccessfully delete then return false
+      if (listener == null || listener.onReplace()) { // require delete the old file
+        if (!destFile.delete()) { // unsuccessfully delete then return false
           return false;
         }
       } else {
@@ -1332,7 +1332,7 @@ public class FileUtils {
     OutputStream os = null;
     try {
       os = new BufferedOutputStream(new FileOutputStream(file));
-      byte data[] = new byte[8192];
+      byte[] data = new byte[8192];
       int len;
       while ((len = is.read(data, 0, 8192)) != -1) {
         os.write(data, 0, len);

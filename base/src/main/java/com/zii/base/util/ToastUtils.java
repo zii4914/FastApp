@@ -529,7 +529,7 @@ public class ToastUtils {
     }
   }
 
-  static abstract class AbsToast implements IToast {
+  abstract static class AbsToast implements IToast {
 
     Toast mToast;
 

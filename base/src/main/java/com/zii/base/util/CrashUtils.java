@@ -98,15 +98,15 @@ public class CrashUtils {
 
   private static String getCrashInfo(Throwable e, String time) {
     final StringBuilder sb = new StringBuilder();
-    final String head = "************* Log Head ****************" +
-      "\nTime Of Crash      : " + time +
-      "\nDevice Manufacturer: " + Build.MANUFACTURER +
-      "\nDevice Model       : " + Build.MODEL +
-      "\nAndroid Version    : " + Build.VERSION.RELEASE +
-      "\nAndroid SDK        : " + Build.VERSION.SDK_INT +
-      "\nApp VersionName    : " + versionName +
-      "\nApp VersionCode    : " + versionCode +
-      "\n************* Log Head ****************\n\n";
+    final String head = "************* Log Head ****************"
+      + "\nTime Of Crash      : " + time
+      + "\nDevice Manufacturer: " + Build.MANUFACTURER
+      + "\nDevice Model       : " + Build.MODEL
+      + "\nAndroid Version    : " + Build.VERSION.RELEASE
+      + "\nAndroid SDK        : " + Build.VERSION.SDK_INT
+      + "\nApp VersionName    : " + versionName
+      + "\nApp VersionCode    : " + versionCode
+      + "\n************* Log Head ****************\n\n";
     sb.append(head);
     StringWriter sw = new StringWriter();
     PrintWriter pw = new PrintWriter(sw);

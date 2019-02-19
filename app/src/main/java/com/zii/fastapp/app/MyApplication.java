@@ -1,4 +1,4 @@
-package com.zii.fastapp;
+package com.zii.fastapp.app;
 
 import android.app.Application;
 import android.util.Log;

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
 
-  private final static SimpleArrayMap<String, String> CITY_MAP = new SimpleArrayMap<>();
+  private static final SimpleArrayMap<String, String> CITY_MAP = new SimpleArrayMap<>();
 
   private RegexUtils() {
     throw new UnsupportedOperationException("u can't instantiate me...");

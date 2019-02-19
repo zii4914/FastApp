@@ -79,8 +79,9 @@ public final class PermissionConstants {
         return GROUP_SMS;
       case STORAGE:
         return GROUP_STORAGE;
+      default:
+        return new String[] { permission };
     }
-    return new String[] { permission };
   }
 
   @StringDef({ CALENDAR, CAMERA, CONTACTS, LOCATION, MICROPHONE, PHONE, SENSORS, SMS, STORAGE, })

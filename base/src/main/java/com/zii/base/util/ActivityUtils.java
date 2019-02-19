@@ -37,9 +37,9 @@ public class ActivityUtils {
   public static boolean isActivityExists(@NonNull final String pkg, @NonNull final String cls) {
     Intent intent = new Intent();
     intent.setClassName(pkg, cls);
-    return !(Utils.getApp().getPackageManager().resolveActivity(intent, 0) == null ||
-      intent.resolveActivity(Utils.getApp().getPackageManager()) == null ||
-      Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() == 0);
+    return !(Utils.getApp().getPackageManager().resolveActivity(intent, 0) == null
+      || intent.resolveActivity(Utils.getApp().getPackageManager()) == null
+      || Utils.getApp().getPackageManager().queryIntentActivities(intent, 0).size() == 0);
   }
 
   /**
@@ -58,8 +58,7 @@ public class ActivityUtils {
    * @param clz The activity class.
    * @param options Additional options for how the Activity should be started.
    */
-  public static void startActivity(@NonNull final Class<? extends Activity> clz,
-    final Bundle options) {
+  public static void startActivity(@NonNull final Class<? extends Activity> clz, final Bundle options) {
     Context context = Utils.getTopActivityOrApp();
     startActivity(context, null, context.getPackageName(), clz.getName(), options);
   }
@@ -592,6 +591,34 @@ public class ActivityUtils {
     }
   }
 
+  private static void startActivity(final Context context, final Bundle extras, final String pkg, final String cls,
+    final Bundle options) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (extras != null) {
+      intent.putExtras(extras);
+    }
+    intent.setComponent(new ComponentName(pkg, cls));
+    startActivity(intent, context, options);
+  }
+
+  private static boolean startActivity(final Intent intent,
+    final Context context,
+    final Bundle options) {
+    if (!isIntentAvailable(intent)) {
+      Log.e("ActivityUtils", "intent is unavailable");
+      return false;
+    }
+    if (!(context instanceof Activity)) {
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+      context.startActivity(intent, options);
+    } else {
+      context.startActivity(intent);
+    }
+    return true;
+  }
+
   /**
    * Start the activity.
    *
@@ -883,6 +910,20 @@ public class ActivityUtils {
       requestCode, getOptionsBundle(activity, sharedElements));
   }
 
+  private static boolean startActivityForResult(final Activity activity,
+    final Bundle extras,
+    final String pkg,
+    final String cls,
+    final int requestCode,
+    final Bundle options) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (extras != null) {
+      intent.putExtras(extras);
+    }
+    intent.setComponent(new ComponentName(pkg, cls));
+    return startActivityForResult(intent, activity, requestCode, options);
+  }
+
   /**
    * Start the activity for result.
    *
@@ -907,6 +948,21 @@ public class ActivityUtils {
     }
   }
 
+  private static boolean startActivityForResult(final Intent intent,
+    final Activity activity,
+    final int requestCode,
+    final Bundle options) {
+    if (!isIntentAvailable(intent)) {
+      Log.e("ActivityUtils", "intent is unavailable");
+      return false;
+    }
+    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+      activity.startActivityForResult(intent, requestCode, options);
+    } else {
+      activity.startActivityForResult(intent, requestCode);
+    }
+    return true;
+  }
   /**
    * Start activities.
    *
@@ -955,6 +1011,21 @@ public class ActivityUtils {
   public static void startActivities(@NonNull final Activity activity,
     @NonNull final Intent[] intents) {
     startActivities(intents, activity, null);
+  }
+
+  private static void startActivities(final Intent[] intents,
+    final Context context,
+    final Bundle options) {
+    if (!(context instanceof Activity)) {
+      for (Intent intent : intents) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      }
+    }
+    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+      context.startActivities(intents, options);
+    } else {
+      context.startActivities(intents);
+    }
   }
 
   /**
@@ -1352,7 +1423,7 @@ public class ActivityUtils {
    */
   public static void finishAllActivities(final boolean isLoadAnim) {
     List<Activity> activityList = Utils.getActivityList();
-    for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
+    for (int i = activityList.size() - 1; i >= 0; --i) { // remove from top
       Activity activity = activityList.get(i);
       // sActivityList remove the index activity at onActivityDestroyed
       activity.finish();
@@ -1373,7 +1444,7 @@ public class ActivityUtils {
   public static void finishAllActivities(@AnimRes final int enterAnim,
     @AnimRes final int exitAnim) {
     List<Activity> activityList = Utils.getActivityList();
-    for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
+    for (int i = activityList.size() - 1; i >= 0; --i) { // remove from top
       Activity activity = activityList.get(i);
       // sActivityList remove the index activity at onActivityDestroyed
       activity.finish();
@@ -1488,87 +1559,11 @@ public class ActivityUtils {
     }
   }
 
-  private static void startActivity(final Context context,
-    final Bundle extras,
-    final String pkg,
-    final String cls,
-    final Bundle options) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (extras != null) {
-      intent.putExtras(extras);
-    }
-    intent.setComponent(new ComponentName(pkg, cls));
-    startActivity(intent, context, options);
-  }
-
-  private static boolean startActivity(final Intent intent,
-    final Context context,
-    final Bundle options) {
-    if (!isIntentAvailable(intent)) {
-      Log.e("ActivityUtils", "intent is unavailable");
-      return false;
-    }
-    if (!(context instanceof Activity)) {
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    }
-    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-      context.startActivity(intent, options);
-    } else {
-      context.startActivity(intent);
-    }
-    return true;
-  }
-
   private static boolean isIntentAvailable(final Intent intent) {
     return Utils.getApp()
       .getPackageManager()
       .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
       .size() > 0;
-  }
-
-  private static boolean startActivityForResult(final Activity activity,
-    final Bundle extras,
-    final String pkg,
-    final String cls,
-    final int requestCode,
-    final Bundle options) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    if (extras != null) {
-      intent.putExtras(extras);
-    }
-    intent.setComponent(new ComponentName(pkg, cls));
-    return startActivityForResult(intent, activity, requestCode, options);
-  }
-
-  private static boolean startActivityForResult(final Intent intent,
-    final Activity activity,
-    final int requestCode,
-    final Bundle options) {
-    if (!isIntentAvailable(intent)) {
-      Log.e("ActivityUtils", "intent is unavailable");
-      return false;
-    }
-    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-      activity.startActivityForResult(intent, requestCode, options);
-    } else {
-      activity.startActivityForResult(intent, requestCode);
-    }
-    return true;
-  }
-
-  private static void startActivities(final Intent[] intents,
-    final Context context,
-    final Bundle options) {
-    if (!(context instanceof Activity)) {
-      for (Intent intent : intents) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      }
-    }
-    if (options != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-      context.startActivities(intents, options);
-    } else {
-      context.startActivities(intents);
-    }
   }
 
   private static Bundle getOptionsBundle(final Context context,

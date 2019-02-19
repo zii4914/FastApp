@@ -179,14 +179,14 @@
       <message key="ws.notPreceded"
         value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
     </module>
-    <module name="Indentation">
-      <property value="2" name="basicOffset"/>
-      <property value="0" name="braceAdjustment"/>
-      <property value="2" name="caseIndent"/>
-      <property value="4" name="throwsIndent"/>
-      <property value="4" name="lineWrappingIndentation"/>
-      <property value="2" name="arrayInitIndent"/>
-    </module>
+    <!--<module name="Indentation">-->
+    <!--<property value="2" name="basicOffset"/>-->
+    <!--<property value="0" name="braceAdjustment"/>-->
+    <!--<property value="2" name="caseIndent"/>-->
+    <!--<property value="4" name="throwsIndent"/>-->
+    <!--<property value="4" name="lineWrappingIndentation"/>-->
+    <!--<property value="2" name="arrayInitIndent"/>-->
+    <!--</module>-->
     <!--<module name="AbbreviationAsWordInName">-->
     <!--<property name="ignoreFinal" value="false"/>-->
     <!--<property name="allowedAbbreviationLength" value="1"/>-->
@@ -227,7 +227,7 @@
     <!--<property name="forbiddenSummaryFragments"-->
     <!--value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>-->
     <!--</module>-->
-    <module name="JavadocParagraph"/>
+    <!--<module name="JavadocParagraph"/>-->
     <module name="AtclauseOrder">
       <property value="@param, @return, @throws, @deprecated" name="tagOrder"/>
       <property value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"
@@ -250,9 +250,9 @@
     <module name="SingleLineJavadoc">
       <property value="false" name="ignoreInlineTags"/>
     </module>
-    <module name="EmptyCatchBlock">
-      <property value="expected" name="exceptionVariableName"/>
-    </module>
+    <!--<module name="EmptyCatchBlock">-->
+    <!--<property value="expected" name="exceptionVariableName"/>-->
+    <!--</module>-->
     <module name="CommentsIndentation"/>
   </module>
 </module>

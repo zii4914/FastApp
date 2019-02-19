@@ -766,7 +766,7 @@ public final class SpanUtils {
       return;
     }
     int start = mBuilder.length();
-    if (start == 0 && lineHeight != -1) {// bug of LineHeightSpan when first line
+    if (start == 0 && lineHeight != -1) { // bug of LineHeightSpan when first line
       mBuilder.append(Character.toString((char) 2))
         .append("\n")
         .setSpan(new AbsoluteSizeSpan(0), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -1263,7 +1263,7 @@ public final class SpanUtils {
     }
   }
 
-  static abstract class CustomDynamicDrawableSpan extends ReplacementSpan {
+  abstract static class CustomDynamicDrawableSpan extends ReplacementSpan {
 
     static final int ALIGN_BOTTOM = 0;
 
@@ -1376,7 +1376,8 @@ public final class SpanUtils {
   static class ShadowSpan extends CharacterStyle implements UpdateAppearance {
 
     private float radius;
-    private float dx, dy;
+    private float dx;
+    private float dy;
     private int shadowColor;
 
     private ShadowSpan(final float radius,

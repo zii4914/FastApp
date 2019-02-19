@@ -612,9 +612,7 @@ public class TimeUtils {
   public static String getFriendlyTimeSpanByNow(final long millis) {
     long now = System.currentTimeMillis();
     long span = now - millis;
-    if (span < 0)
-    // U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
-    {
+    if (span < 0) { // U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
       return String.format("%tc", millis);
     }
     if (span < 1000) {

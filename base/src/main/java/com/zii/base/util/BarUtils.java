@@ -162,6 +162,17 @@ public class BarUtils {
     view.setTag(KEY_OFFSET, true);
   }
 
+  private static void addMarginTopEqualStatusBarHeight(final Window window) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      return;
+    }
+    View withTag = window.getDecorView().findViewWithTag(TAG_OFFSET);
+    if (withTag == null) {
+      return;
+    }
+    addMarginTopEqualStatusBarHeight(withTag);
+  }
+
   /**
    * Subtract the top margin size equals status bar's height for view.
    *
@@ -182,17 +193,6 @@ public class BarUtils {
       layoutParams.rightMargin,
       layoutParams.bottomMargin);
     view.setTag(KEY_OFFSET, false);
-  }
-
-  private static void addMarginTopEqualStatusBarHeight(final Window window) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-      return;
-    }
-    View withTag = window.getDecorView().findViewWithTag(TAG_OFFSET);
-    if (withTag == null) {
-      return;
-    }
-    addMarginTopEqualStatusBarHeight(withTag);
   }
 
   private static void subtractMarginTopEqualStatusBarHeight(final Window window) {
@@ -452,8 +452,8 @@ public class BarUtils {
     final int color,
     final int alpha,
     boolean isDecor) {
-    ViewGroup parent = isDecor ?
-      (ViewGroup) activity.getWindow().getDecorView() :
+    ViewGroup parent = isDecor
+      ? (ViewGroup) activity.getWindow().getDecorView() :
       (ViewGroup) activity.findViewById(android.R.id.content);
     View fakeStatusBarView = parent.findViewWithTag(TAG_COLOR);
     if (fakeStatusBarView != null) {
@@ -469,8 +469,8 @@ public class BarUtils {
   private static void addStatusBarAlpha(final Activity activity,
     final int alpha,
     boolean isDecor) {
-    ViewGroup parent = isDecor ?
-      (ViewGroup) activity.getWindow().getDecorView() :
+    ViewGroup parent = isDecor
+      ? (ViewGroup) activity.getWindow().getDecorView() :
       (ViewGroup) activity.findViewById(android.R.id.content);
     View fakeStatusBarView = parent.findViewWithTag(TAG_ALPHA);
     if (fakeStatusBarView != null) {
@@ -487,10 +487,6 @@ public class BarUtils {
     hideColorView(activity.getWindow());
   }
 
-  private static void hideAlphaView(final Activity activity) {
-    hideAlphaView(activity.getWindow());
-  }
-
   private static void hideColorView(final Window window) {
     ViewGroup decorView = (ViewGroup) window.getDecorView();
     View fakeStatusBarView = decorView.findViewWithTag(TAG_COLOR);
@@ -498,6 +494,10 @@ public class BarUtils {
       return;
     }
     fakeStatusBarView.setVisibility(View.GONE);
+  }
+
+  private static void hideAlphaView(final Activity activity) {
+    hideAlphaView(activity.getWindow());
   }
 
   private static void hideAlphaView(final Window window) {

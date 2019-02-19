@@ -191,9 +191,9 @@ public final class ShellUtils {
 
     @Override
     public String toString() {
-      return "result: " + result + "\n" +
-        "successMsg: " + successMsg + "\n" +
-        "errorMsg: " + errorMsg;
+      return "result: " + result + "\n"
+        + "successMsg: " + successMsg + "\n"
+        + "errorMsg: " + errorMsg;
     }
   }
 }

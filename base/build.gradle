@@ -27,13 +27,6 @@ dependencies {
     api libs.AndroidX_AppCompat
     api libs.ConstrainLayout
     api libs.Logger
-    api libs.AutoDispose
-    api libs.Retrofit
-    api libs.RetrofitGsonConvert
-    api libs.RetrofitRxJavaAdapter
-    api libs.Okhttp
-    api libs.Rxjava2
-    api libs.Rxjava2Android
     implementation libs.Butterknife
     annotationProcessor libs.ButterknifeCompiler
 }

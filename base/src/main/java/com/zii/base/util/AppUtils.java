@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class AppUtils {
 
-  private static final char HEX_DIGITS[] =
+  private static final char[] HEX_DIGITS =
     { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
   private AppUtils() {
@@ -191,16 +191,15 @@ public class AppUtils {
       return false;
     }
     String filePath = '"' + file.getAbsolutePath() + '"';
-    String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
-      (params == null ? "" : params + " ")
-      + filePath;
+    String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install "
+      + (params == null ? "" : params + " ") + filePath;
     ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
     if (commandResult.successMsg != null
       && commandResult.successMsg.toLowerCase().contains("success")) {
       return true;
     } else {
-      Log.e("AppUtils", "installAppSilent successMsg: " + commandResult.successMsg +
-        ", errorMsg: " + commandResult.errorMsg);
+      Log.e("AppUtils", "installAppSilent successMsg: " + commandResult.successMsg
+        + ", errorMsg: " + commandResult.errorMsg);
       return false;
     }
   }
@@ -286,8 +285,8 @@ public class AppUtils {
       && commandResult.successMsg.toLowerCase().contains("success")) {
       return true;
     } else {
-      Log.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult.successMsg +
-        ", errorMsg: " + commandResult.errorMsg);
+      Log.e("AppUtils", "uninstallAppSilent successMsg: " + commandResult.successMsg
+        + ", errorMsg: " + commandResult.errorMsg);
       return false;
     }
   }
@@ -485,7 +484,7 @@ public class AppUtils {
    */
   public static void exitApp() {
     List<Activity> activityList = Utils.getActivityList();
-    for (int i = activityList.size() - 1; i >= 0; --i) {// remove from top
+    for (int i = activityList.size() - 1; i >= 0; --i) { // remove from top
       Activity activity = activityList.get(i);
       // sActivityList remove the index activity at onActivityDestroyed
       activity.finish();
@@ -985,7 +984,7 @@ public class AppUtils {
           "getForegroundProcessName: noun of access to usage information.");
         return "";
       }
-      try {// Access to usage information.
+      try { // Access to usage information.
         ApplicationInfo info =
           pm.getApplicationInfo(Utils.getApp().getPackageName(), 0);
         AppOpsManager aom =
@@ -1114,15 +1113,15 @@ public class AppUtils {
 
     @Override
     public String toString() {
-      return "{" +
-        "\n  pkg name: " + getPackageName() +
-        "\n  app icon: " + getIcon() +
-        "\n  app name: " + getName() +
-        "\n  app path: " + getPackagePath() +
-        "\n  app v name: " + getVersionName() +
-        "\n  app v code: " + getVersionCode() +
-        "\n  is system: " + isSystem() +
-        "}";
+      return "{"
+        + "\n  pkg name: " + getPackageName()
+        + "\n  app icon: " + getIcon()
+        + "\n  app name: " + getName()
+        + "\n  app path: " + getPackagePath()
+        + "\n  app v name: " + getVersionName()
+        + "\n  app v code: " + getVersionCode()
+        + "\n  is system: " + isSystem()
+        + "}";
     }
   }
 }

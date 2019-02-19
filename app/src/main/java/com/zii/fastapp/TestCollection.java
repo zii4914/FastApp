@@ -15,6 +15,13 @@ import com.zii.base.widget.dialog.PopupDialog;
 import com.zii.base.widget.dialog.PopupItemsDialog;
 import com.zii.base.widget.dialog.TranslucenceDialog;
 import com.zii.base.widget.picker.NumberPickerDialog;
+import com.zii.business.net.RetrofitClient;
+import com.zii.business.utils.RetrofitUtils;
+import com.zii.fastapp.entity.HomePageBean;
+import com.zii.fastapp.entity.ResultResp;
+import com.zii.fastapp.net.TestApi;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
@@ -30,6 +37,8 @@ public class TestCollection {
   private Uri mPictureUri;
   private String mPicturePath;
 
+  private static final String URL_WANDROID_ARTICLE = "http://www.wanandroid.com/article/list/0/json";
+
   public TestCollection(Activity activity) {
     mActivity = activity;
   }
@@ -40,6 +49,32 @@ public class TestCollection {
     //  .setTitle("标题")
     //  .show();
 
+  }
+
+  public void testRetrofitUtils() {
+    RetrofitClient.getInstance().create(TestApi.class).homePage()
+      .compose(RetrofitUtils.applyCommon())
+      .subscribe(new Observer<ResultResp<HomePageBean>>() {
+        @Override
+        public void onSubscribe(Disposable d) {
+          Log.d("zii-" + "", "onSubscribe() called with: d = [" + d + "]");
+        }
+
+        @Override
+        public void onNext(ResultResp<HomePageBean> s) {
+          Log.d("zii-" + "", "onNext() called with: s = [" + s + "]");
+        }
+
+        @Override
+        public void onError(Throwable e) {
+          Log.d("zii-" + "", "onError() called with: e = [" + e + "]");
+        }
+
+        @Override
+        public void onComplete() {
+          Log.d("zii-" + "", "onComplete() called");
+        }
+      });
   }
 
   public void testShowDatePicker(View view) {
